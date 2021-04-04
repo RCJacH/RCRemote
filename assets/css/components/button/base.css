@@ -1,0 +1,17 @@
+.c-button {
+  display: flex;
+  flex-direction: column;
+  flex: 1 0 auto;
+  justify-content: center;
+  align-items: center;
+
+  &--single, &--multi {
+    position: relative;
+    border-radius: var(--button-border-radius);
+    display: flex;
+    justify-content: center;
+    align-items:center;
+    transform-style: preserve-3d;
+    cursor: pointer;
+  }
+}

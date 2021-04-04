@@ -1,0 +1,18 @@
+mixin btn_setting(buttons)
+  .c-button
+    .c-button--multi
+      for each in buttons
+        +btn_multi(each)
+
+mixin btn_multi(id)
+  .c-button--multi_partial(onclick="pressed_" + id + "()")
+    .o-icon(id=id + "-button")
+      svg(viewBox="0 0 100 100")
+        use(xlink:href="#o-icon-" + id)
+
+mixin btn_playback(id)
+  .c-button
+    .c-button--single(onclick="pressed_" + id + "()")
+      .o-icon(id=id + "-button",)
+        svg(viewBox="0 0 100 100")
+          use(xlink:href="#o-icon-" + id)

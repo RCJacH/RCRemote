@@ -1,0 +1,4 @@
+:root {
+  @import 'colors.css';
+  @import 'size.css';
+}

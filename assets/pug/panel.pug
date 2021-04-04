@@ -1,0 +1,18 @@
+include mixin.button.pug
+
+#transport
+  include transport.screen.pug
+  #settings
+    .position
+      //- +btn_setting(["position-unit", "rewind", "ffoward"])
+    .options
+      //- +btn_setting("loop", "more", "preroll")
+  #playback
+    +btn_playback("play")
+    //- +btn_playback("pause")
+    +btn_playback("record")
+    +btn_playback("stop")
+    //- +btn_playback("abort")
+    +btn_playback("undo")
+  #show-tracks
+    #show-tracks-button.c-button(onclick="pressed_show_tracks()")

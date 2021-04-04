@@ -1,0 +1,9 @@
+#playback {
+  display: flex;
+  flex-wrap: wrap;
+  flex: 6;
+
+  .c-button {
+    flex-basis: 42%;
+  }
+}
