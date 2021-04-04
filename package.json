@@ -1,0 +1,46 @@
+{
+  "name": "rcremote",
+  "version": "1.0.0",
+  "description": "Web Remote Controller for Recording with REAPER",
+  "main": "index.js",
+  "scripts": {
+    "build:pug": "pug -P -p assets/pug/index.pug < assets/pug/index.pug > dists/RCRemote.html",
+    "watch:pug": "watch \"npm run build:pug\" assets/pug",
+    "build:css": "postcss assets/css/index.css --output dists/RCRemote.css",
+    "build:css:dev": "npm run build:css -- --env development",
+    "build": "npm run build:css",
+    "watch:css": "watch \"npm run build:css:dev\" assets/css",
+    "watch": "multiview [npm run watch:css] [npm run watch:pug]",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "browserslist": [
+    "> 0.2%",
+    "last 10 versions",
+    "Firefox ESR",
+    "not dead",
+    "iOS 8"
+  ],
+  "author": "RCJacH",
+  "license": "ISC",
+  "dependencies": {},
+  "devDependencies": {
+    "autoprefixer": "^10.2.5",
+    "cssmin": "^0.4.3",
+    "cssnano": "^4.1.10",
+    "glob": "^7.1.6",
+    "multiview": "^3.0.1",
+    "postcss": "^8.2.8",
+    "postcss-cli": "^8.3.1",
+    "postcss-functions": "^4.0.2",
+    "postcss-import": "^14.0.0",
+    "postcss-mixins": "^7.0.3",
+    "postcss-preset-env": "^6.7.0",
+    "postcss-scss": "^3.0.5",
+    "precss": "^4.0.0",
+    "pug": "^3.0.2",
+    "pug-cli": "^1.0.0-alpha6",
+    "rimraf": "^3.0.2",
+    "sass": "^1.32.8",
+    "watch": "^1.0.2"
+  }
+}
