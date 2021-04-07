@@ -8,9 +8,11 @@
     "watch:pug": "watch \"npm run build:pug\" assets/pug",
     "build:css": "postcss assets/css/index.css --output dists/RCRemote.css",
     "build:css:dev": "npm run build:css -- --env development",
+    "build:ts": "npx tsc assets/ts/RCRemote.ts --out dists/RCRemote.js",
+    "watch:ts": "npm run build:ts -- -w assets/ts",
     "build": "npm run build:css",
     "watch:css": "watch \"npm run build:css:dev\" assets/css",
-    "watch": "multiview [npm run watch:css] [npm run watch:pug]",
+    "watch": "multiview [npm run watch:css] [npm run watch:pug] [npm run watch:ts]",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "browserslist": [
@@ -40,7 +42,8 @@
     "pug": "^3.0.2",
     "pug-cli": "^1.0.0-alpha6",
     "rimraf": "^3.0.2",
-    "sass": "^1.32.8",
+    "tsc": "^1.20150623.0",
+    "typescript": "^4.2.3",
     "watch": "^1.0.2"
   }
 }
