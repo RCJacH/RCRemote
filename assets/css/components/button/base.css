@@ -1,17 +1,18 @@
-.c-button {
+.o-button {
   display: flex;
   flex-direction: column;
   flex: 1 0 auto;
   justify-content: center;
   align-items: center;
 
-  &--single, &--multi {
-    position: relative;
-    border-radius: var(--button-border-radius);
+  div {
     display: flex;
     justify-content: center;
-    align-items:center;
+    align-items: center;
+  }
+
+  &--single, &--multi {
+    position: relative;
     transform-style: preserve-3d;
-    cursor: pointer;
   }
 }

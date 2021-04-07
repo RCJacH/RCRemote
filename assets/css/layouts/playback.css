@@ -3,7 +3,7 @@
   flex-wrap: wrap;
   flex: 6;
 
-  .c-button {
+  .o-button {
     flex-basis: 42%;
   }
 }
