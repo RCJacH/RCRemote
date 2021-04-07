@@ -24,3 +24,11 @@
 #undo-button {
   fill: var(--color-undo-button);
 }
+
+#backward-button {
+  fill: var(--color-backward-button);
+}
+
+#forward-button {
+  fill: var(--color-forward-button);
+}

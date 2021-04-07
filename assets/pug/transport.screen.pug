@@ -1,4 +1,10 @@
-.c-screen
-  .o-screen__backward
-  #position.c-screen__info Initializing...
-  .o-screen__forward
+mixin btn_screen(id)
+  div(class="c-screen__" + id)
+    .o-icon(id=id + "-button",)
+      svg(viewBox="0 0 100 100")
+        use(xlink:href="#o-icon-" + id)
+
+.c-screen(onclick="pressed_screen()")
+  +btn_screen("backward")
+  .c-screen__info#status Initializing...
+  +btn_screen("forward")
