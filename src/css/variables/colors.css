@@ -16,12 +16,13 @@
 --color-panel: var(--color-gray-100);
 --color-default: var(--color-gray-10);
 
+--color-default-button: var(--color-gray-10);
 --color-play-button: #2A854E;
 --color-record-button: #DE1B1B;
 --color-pause-button: #A4A234;
---color-stop-button: var(--color-default);
+--color-stop-button: var(--color-default-button);
 --color-abort-button: #B80D0D;
---color-undo-button: var(--color-default);
+--color-undo-button: var(--color-default-button);
 --color-positional: hsl(33, 79%, 58%);
 --color-backward-button: var(--color-positional);
 --color-forward-button: var(--color-positional);
