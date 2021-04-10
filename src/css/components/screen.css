@@ -10,11 +10,12 @@
     display: flex;
     justify-content: center;
     align-items: center;
-    flex: 1;
   }
 
   &__backward, &__forward {
     opacity: 0;
+    width: 40%;
+    height: auto;
 
     &:hover {
       opacity: .4;
