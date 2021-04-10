@@ -1,7 +1,5 @@
 .o-button {
   display: flex;
-  flex-direction: column;
-  flex: 1 0 auto;
   justify-content: center;
   align-items: center;
 
@@ -11,7 +9,7 @@
     align-items: center;
   }
 
-  &--single, &--multi {
+  &.-single, &--multi {
     position: relative;
     transform-style: preserve-3d;
   }
