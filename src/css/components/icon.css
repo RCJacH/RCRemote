@@ -3,4 +3,6 @@
   position: relative;
   height: 40%;
   width: 40%;
+  fill: var(--color-default-button);
+  stroke: var(--color-default-button);
 }

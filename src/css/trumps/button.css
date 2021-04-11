@@ -1,23 +1,18 @@
-.o-icon {
-  fill: var(--color-default-button);
-  stroke: var(--color-default-button);
-
-  .active & {
-    #play-button& {
-      fill: var(--color-play-button);
-    }
-    #record-button& {
-      stroke: var(--color-record-button);
-    }
-    #pause-button& {
-      fill: var(--color-pause-button);
-    }
-    #abort-button& {
-      stroke: var(--color-abort-button);
-    }
-    #undo-button& {
-      fill: var(--color-undo-button);
-    }
+.active .o-icon {
+  #play-button& {
+    fill: var(--color-play-button);
+  }
+  #record-button& {
+    stroke: var(--color-record-button);
+  }
+  #pause-button& {
+    fill: var(--color-pause-button);
+  }
+  #abort-button& {
+    stroke: var(--color-abort-button);
+  }
+  #undo-button& {
+    fill: var(--color-undo-button);
   }
 }
 
