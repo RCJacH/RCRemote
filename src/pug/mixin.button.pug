@@ -13,5 +13,5 @@ mixin btn_multi(id)
 mixin btn_playback(id)
   .o-button.-single(id=id + "-button", onclick="pressed_" + id + "()")
     .o-icon
-      svg(viewBox="0 0 100 100")
+      svg(width="100%" height="100%" viewBox="0 0 100 100")
         use(xlink:href="#o-icon-" + id)

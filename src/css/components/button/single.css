@@ -1,8 +1,6 @@
 $transition-timing: 100ms cubic-bezier(0.3, 1.05, 0.6, 1.15);
 
 .o-button.-single {
-  width: 80%;
-  height: auto;
   border-radius: var(--button-border-radius);
   cursor: pointer;
   margin: 4%;
