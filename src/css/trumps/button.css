@@ -21,10 +21,6 @@
   }
 }
 
-#backward-button {
-  fill: var(--color-backward-button);
-}
-
-#forward-button {
-  fill: var(--color-forward-button);
+#backward-button, #forward-button {
+  fill: var(--color-positional);
 }

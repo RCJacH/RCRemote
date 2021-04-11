@@ -24,5 +24,3 @@
 --color-abort-button: #B80D0D;
 --color-undo-button: var(--color-default-button);
 --color-positional: hsl(33, 79%, 58%);
---color-backward-button: var(--color-positional);
---color-forward-button: var(--color-positional);

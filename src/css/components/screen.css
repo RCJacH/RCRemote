@@ -10,12 +10,13 @@
     display: flex;
     justify-content: center;
     align-items: center;
+    height: 100%;
   }
 
-  &__backward, &__forward {
+  &__button {
+    flex: 1;
     opacity: 0;
-    width: 40%;
-    height: auto;
+    transition: opacity 50ms ease-out;
 
     &:hover {
       opacity: .4;
@@ -23,5 +24,9 @@
     &:active {
       opacity: .8;
     }
+  }
+
+  &__info {
+    flex: 3;
   }
 }
