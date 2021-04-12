@@ -95,3 +95,5 @@ function mkpanstr(pan) {
 function simple_unescape(v) {
   return String(v).replace(/\\t/g,"\t").replace(/\\n/g,"\n").replace(/\\\\/g,"\\");
 }
+
+export { wwr_req, wwr_req_recur, wwr_req_recur_cancel, wwr_start};

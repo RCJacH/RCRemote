@@ -12,7 +12,7 @@ module.exports = {
     clean: true,
   },
   devServer: {
-    publicPath: '/assets/',
+    publicPath: '/src/',
     contentBase: path.resolve(__dirname, 'dist'),
     watchContentBase: true,
     compress: true,
@@ -36,7 +36,7 @@ module.exports = {
         use: ['simple-pug-loader']
       },
       {
-        test: /\\.(ts|tsx)$/,
+        test: /\.tsx?$/,
         loader: 'ts-loader',
         exclude: ['/node_modules/'],
       },
