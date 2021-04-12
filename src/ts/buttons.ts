@@ -1,56 +1,51 @@
 ///<reference path="main.ts">///
+import {wwr_req} from "./main.js";
 
 
-function next_position_unit(s) {
-  var a = ['Beat', 'Bar', 'Marker'];
-  return a[(a.indexOf(s) + 1) % a.length];
+function button_trigger(id: string, fn: () => void): void {
+  document.getElementById(id.concat("-button"))?.addEventListener(
+    "click", fn
+    );
 }
 
+button_trigger("play", () => wwr_req(1007));
+button_trigger("pause", () => wwr_req(40073));
+button_trigger("record", () => wwr_req(1013));
+button_trigger("stop", () => wwr_req(40667));
+button_trigger("abort", () => wwr_req(40668));
+button_trigger("undo", () => wwr_req(40029));
+button_trigger("redo", () => wwr_req(40030));
+button_trigger("loop", () => wwr_req(1068));
+button_trigger("preroll", () => wwr_req(41819));
+button_trigger("metronome", () => wwr_req(40364));
 
-function pressed_unit() {
-  var dom = document.getElementById("unit-button");
-  var s = dom.innerHTML;
-  dom.innerHTML = next_position_unit(s);
+
+var positionUnits = ["Beat", "Bar", "Marker"];
+function next_position_unit(s: string) {
+  return positionUnits[(positionUnits.indexOf(s) + 1) % positionUnits.length];
 }
+button_trigger("unit", () => {
+  var s = document.getElementById("unit-button")?.innerHTML;
+  if (s == null) return;
+  s = next_position_unit(s);
+});
 
-function pressed_backward() {
-  var s = document.getElementById("unit-button").innerHTML;
-  switch (s) {
-    case "Beat":
-      wwr_req(41045);
-      break;
-    case "Bar":
-      wwr_req(41043);
-      break;
-    case "Marker":
-      wwr_req(40173);
-      break;
-  }
-  wwr_req(41043);
+
+function position_change(action_id: {[key: string]: number}): void {
+  var s = document.getElementById("unit-button")?.innerHTML;
+  if (s == null) return;
+  wwr_req(action_id[s]);
+  console.log(action_id[s]);
 }
-
-function pressed_forward() {
-  var s = document.getElementById("unit-button").innerHTML;
-  switch (s) {
-    case "Beat":
-      wwr_req(41044);
-      break;
-    case "Bar":
-      wwr_req(41042);
-      break;
-    case "Marker":
-      wwr_req(40172);
-      break;
-  }
-}
-
-function pressed_loop() {wwr_req(1068); }
-function pressed_preroll() { wwr_req(41819); }
-function pressed_play() { wwr_req(1007); }
-function pressed_pause() { wwr_req(40073); }
-function pressed_record() { wwr_req(1013); }
-function pressed_stop() { wwr_req(40667); }
-function pressed_abort() { wwr_req(40668); }
-function pressed_undo() { wwr_req(40029); }
-function pressed_redo() { wwr_req(40030); }
-function pressed_click() { wwr_req(40364); }
+button_trigger("backward", () => position_change({
+    "Beat": 41045,
+    "Bar": 41043,
+    "Marker": 40173
+  })
+)
+button_trigger("forward", () => position_change({
+    "Beat": 41044,
+    "Bar": 41042,
+    "Marker": 40172
+  })
+)

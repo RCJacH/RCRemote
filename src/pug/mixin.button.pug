@@ -5,13 +5,13 @@ mixin btn_setting(buttons)
         +btn_multi(each)
 
 mixin btn_multi(id)
-  .o-button--multi_partial(onclick="pressed_" + id + "()")= id
+  .o-button--multi_partial= id
     //- .o-icon(id=id + "-button")
       svg(viewBox="0 0 100 100")
         use(xlink:href="#o-icon-" + id)
 
 mixin btn_playback(id)
-  .o-button.-single(id=id + "-button", onclick="pressed_" + id + "()")
+  .o-button.-single(id=id + "-button")
     .o-icon
       svg(viewBox="0 0 100 100")
         use(xlink:href="#o-icon-" + id)
