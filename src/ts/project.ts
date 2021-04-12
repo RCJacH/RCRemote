@@ -4,10 +4,11 @@ import {wwr_req_recur, wwr_start} from "./main.js";
 class ProjectInfo {
   static posUnits = ["Beat", "Bar", "Marker"];
 
-  playstate: number = -1;
+  transportState: number = -1;
   posUnitInt: number = 1;
   transportRecurTime: number = 10;
   trackRecurTime: number = 1000;
+  lastPosition: string = "";
 
   start() {
     wwr_req_recur("TRANSPORT", this.transportRecurTime);

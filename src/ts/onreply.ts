@@ -1,80 +1,110 @@
-function setTextForObject(obj, text) {
-  if (obj.lastChild)
-      obj.lastChild.nodeValue = text;
-  else
-      obj.appendChild(document.createTextNode(text));
-}
-function toggle_button(id, state, classname) {
-  if (typeof (classname) === "undefined")
-      classname = "active";
-  var elm = document.getElementById(id);
-  elm.classList.toggle(classname, state);
-  // element.setAttribute('active', state);
-}
-function ProjectInfo() {
-  this.playstate = -1;
-}
-var pinfo = new ProjectInfo();
-function parse_transport_tokens(tok) {
-  if (tok.length > 4) {
-      if (tok[1] != pinfo.playstate) {
-          pinfo.playstate = tok[1];
-          if (pinfo.playstate == 1) {
+import {pinfo} from "./project";
 
-          }
-          toggle_button("play-button", pinfo.playstate & 1);
-          // toggle_button("pause-button", pinfo.playstate & 2);
-          toggle_button("record-button", pinfo.playstate & 4);
-          // toggle_button("abort-button", pinfo.playstate & 4);
-      }
-      // if (tok[3] != last_repeat) {
-      //   last_repeat = tok[3];
-      //   toggle_button("loop-button", last_repeat>0);
-      // }
-      var obj = document.getElementById("status");
-      if (obj) {
-          var tmp = "";
-            switch (parseInt(pinfo.playstate)) {
-              case 0: tmp += "stopped: "; break;
-              case 1: tmp += "playing: "; break;
-              case 2: tmp += "paused: "; break;
-              case 5: tmp += "recording: "; break;
-              case 6: tmp += "recpaused: "; break;
-            }
-          tmp += (last_time_str = tok[4]);
-          obj.innerHTML = tmp;
-      }
-  }
-}
-function parse_cmdstate_tokens(tok) {
-  if (tok[1] == 40364) {
-      if ((tok[2] > 0) != last_metronome) {
-          last_metronome = tok[2] > 0;
-          if (g_inspect_tridx == 0)
-              document.getElementById("trackinspect_clone").style.background = last_metronome ? "#8f8" : "#777";
-      }
-  }
-}
-function wwr_onreply(results) {
+
+function wwr_onreply(results: string) {
   var ar = results.split("\n");
   for (var x = 0; x < ar.length; x++) {
-      var tok = ar[x].split("\t");
-      if (tok.length > 0)
-          switch (tok[0]) {
-              case "TRANSPORT":
-                  parse_transport_tokens(tok);
-                  break;
-              case "CMDSTATE":
-                  // parse_cmdstate_tokens(tok);
-                  break;
-              case "SEND":
-                  break;
-              case "NTRACK":
-                  break;
-              case "TRACK":
-                  break;
-          }
+    var tok = ar[x].split("\t");
+    if (tok.length > 0) parse_tokens(tok);
   }
 }
 
-export default wwr_onreply;
+
+function parse_tokens(tok: string[]) {
+  switch (tok[0]) {
+    case "TRANSPORT":
+      parse_transport_tokens(tok);
+      break;
+    case "CMDSTATE":
+      // parse_cmdstate_tokens(tok);
+      break;
+    case "SEND":
+      break;
+    case "NTRACK":
+      break;
+    case "TRACK":
+      break;
+  }
+}
+
+
+function parse_transport_tokens(tok: string[]) {
+  if (tok.length > 4) {
+    var transportState = parseInt(tok[1]);
+    if (transportState != pinfo.transportState) {
+      pinfo.transportState = transportState;
+      toggle_button("play-button", !!(pinfo.transportState & 1));
+      toggle_button("pause-button", !!(pinfo.transportState & 2));
+      toggle_button("record-button", !!(pinfo.transportState & 4));
+      toggle_button("abort-button", !!(pinfo.transportState & 4));
+    }
+    // if (tok[3] != last_repeat) {
+    //   last_repeat = tok[3];
+    //   toggle_button("loop-button", last_repeat>0);
+    // }
+    set_transport_status(tok[4]);
+    set_transport_buttons();
+  }
+}
+
+
+function get_status_string(index: number): string {
+  switch (index) {
+    case -1: return "initializing...";
+    case 0: return "stopped: ";
+    case 1: return "playing: ";
+    case 2: return "paused: ";
+    case 5: return "recording: ";
+    case 6: return "recpaused: ";
+  }
+  return "";
+}
+function set_transport_status(position: string) {
+  var obj = document.getElementById("status");
+  if (obj) {
+    var tmp = get_status_string(pinfo.transportState);
+    tmp += (pinfo.lastPosition = position);
+    obj.innerHTML = tmp;
+  }
+}
+
+
+function set_transport_buttons() {
+  switch (pinfo.transportState) {
+    case 0:
+      toggle_button_hidden("play", false);
+      toggle_button_hidden("pause", true);
+      toggle_button_hidden("abort", true);
+      toggle_button_hidden("undo", false);
+      break;
+    case 1:
+    case 2:
+      toggle_button_hidden("play", true);
+      toggle_button_hidden("pause", false);
+      toggle_button_hidden("abort", true);
+      toggle_button_hidden("undo", false);
+      break;
+    case 5:
+    case 6:
+      toggle_button_hidden("play", true);
+      toggle_button_hidden("pause", false);
+      toggle_button_hidden("abort", false);
+      toggle_button_hidden("undo", true);
+      break;
+  }
+}
+
+function toggle_button(
+  id: string,
+  state: boolean,
+  classname = "active"
+) {
+  document.getElementById(id)?.classList.toggle(classname, state);
+}
+
+function toggle_button_hidden(id: string, state: boolean) {
+  toggle_button(id, state, "hidden");
+}
+
+
+export {wwr_onreply};

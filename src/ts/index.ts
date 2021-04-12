@@ -1,7 +1,6 @@
-///<reference path="main.ts">///
+import "./buttons";
+import "./main.js";
+import {wwr_onreply} from "./onreply";
+import {pinfo} from "./project";
 
-import './buttons';
-
-function wwr_onreply() {
-  
-}
+pinfo.start()

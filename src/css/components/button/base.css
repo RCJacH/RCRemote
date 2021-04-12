@@ -13,4 +13,8 @@
     position: relative;
     transform-style: preserve-3d;
   }
+
+  &.hidden {
+    display: none;
+  }
 }
