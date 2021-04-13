@@ -1,3 +1,6 @@
+import {wwr_onreply} from "./onreply";
+
+
 function initxmlhttp() {
   var xmlhttp=false;
   if (!xmlhttp && typeof XMLHttpRequest!='undefined') { 

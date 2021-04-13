@@ -14,7 +14,7 @@
     transform-style: preserve-3d;
   }
 
-  &.hidden {
+  &.-hidden {
     display: none;
   }
 }

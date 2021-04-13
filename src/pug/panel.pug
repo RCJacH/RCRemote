@@ -9,10 +9,10 @@ include mixin.button.pug
       //- +btn_setting("loop", "more", "preroll")
   #playback
     +btn_playback("play")
-    //- +btn_playback("pause")
+    +btn_playback("pause")
     +btn_playback("record")
     +btn_playback("stop")
-    //- +btn_playback("abort")
+    +btn_playback("abort")
     +btn_playback("undo")
   #show-tracks
     #show-tracks-button.c-button(onclick="pressed_show_tracks()")

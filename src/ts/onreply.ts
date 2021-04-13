@@ -43,7 +43,7 @@ function parse_transport_tokens(tok: string[]) {
     //   toggle_button("loop-button", last_repeat>0);
     // }
     set_transport_status(tok[4]);
-    set_transport_buttons();
+    set_transport_buttons(pinfo.transportState);
   }
 }
 
@@ -56,54 +56,56 @@ function get_status_string(index: number): string {
     case 2: return "paused: ";
     case 5: return "recording: ";
     case 6: return "recpaused: ";
+    default: return "";
   }
-  return "";
 }
 function set_transport_status(position: string) {
   var obj = document.getElementById("status");
   if (obj) {
-    var tmp = get_status_string(pinfo.transportState);
+    var tmp = get_status_string(pinfo.transportState).toUpperCase();
     tmp += (pinfo.lastPosition = position);
     obj.innerHTML = tmp;
   }
 }
 
-
-function set_transport_buttons() {
-  switch (pinfo.transportState) {
+window.addEventListener("load", () => set_transport_buttons(0));
+function set_transport_buttons(transportState: number) {
+  switch (transportState) {
+    default:
     case 0:
-      toggle_button_hidden("play", false);
-      toggle_button_hidden("pause", true);
-      toggle_button_hidden("abort", true);
-      toggle_button_hidden("undo", false);
-      break;
+      toggle_button_hidden("play-button", false);
+      toggle_button_hidden("pause-button", true);
+      toggle_button_hidden("abort-button", true);
+      toggle_button_hidden("undo-button", false);
+    break;
     case 1:
     case 2:
-      toggle_button_hidden("play", true);
-      toggle_button_hidden("pause", false);
-      toggle_button_hidden("abort", true);
-      toggle_button_hidden("undo", false);
-      break;
+      toggle_button_hidden("play-button", true);
+      toggle_button_hidden("pause-button", false);
+      toggle_button_hidden("abort-button", true);
+      toggle_button_hidden("undo-button", false);
+    break;
     case 5:
     case 6:
-      toggle_button_hidden("play", true);
-      toggle_button_hidden("pause", false);
-      toggle_button_hidden("abort", false);
-      toggle_button_hidden("undo", true);
-      break;
+      toggle_button_hidden("play-button", true);
+      toggle_button_hidden("pause-button", false);
+      toggle_button_hidden("abort-button", false);
+      toggle_button_hidden("undo-button", true);
+    break;
   }
 }
 
 function toggle_button(
   id: string,
   state: boolean,
-  classname = "active"
+  classname: string = "-active",
 ) {
   document.getElementById(id)?.classList.toggle(classname, state);
 }
 
 function toggle_button_hidden(id: string, state: boolean) {
-  toggle_button(id, state, "hidden");
+  console.log('toggle button: id %s, state %s', id, state);
+  toggle_button(id, state, "-hidden");
 }
 
 
