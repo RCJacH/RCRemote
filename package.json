@@ -13,7 +13,7 @@
     "watch:js": "watch \"npm run build:js\" assets/js",
     "build:ts": "npx tsc assets/ts/RCRemote.ts --out dists/RCRemote.js",
     "watch:ts": "npm run build:ts -- -w assets/ts",
-    "build": "webpack --mode=production",
+    "build": "webpack",
     "watch": "webpack --watch",
     "serve": "webpack serve",
     "test": "echo \"Error: no test specified\" && exit 1",

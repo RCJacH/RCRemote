@@ -1,13 +1,15 @@
 {
   "compilerOptions": {
-    "rootDir": "src/",
-    "outDir": "./dist/",
+    "rootDir": "./",
+    "outDir": "./public/",
     "sourceMap": true,
     "esModuleInterop": true,
     "strict": true,
+    "skipLibCheck": true,
     "module": "es6",
     "target": "es5",
-    "allowJs": true
+    "allowJs": true,
+
   },
   "files": ["./src/index.ts"]
 }

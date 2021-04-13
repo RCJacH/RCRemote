@@ -1,63 +1,22 @@
-// Generated using webpack-cli http://github.com/webpack-cli
-const path = require('path');
-const HtmlWebpackPlugin = require('html-webpack-plugin');
-const MiniCssExtractPlugin = require('mini-css-extract-plugin');
+const TARGET = process.env.npm_lifecycle_event;
 
-module.exports = {
-  mode: 'development',
-  entry: './src/index.ts',
-  output: {
-    filename: 'RCRemote.js',
-    path: path.resolve(__dirname, 'dist'),
-    clean: true,
-  },
-  devServer: {
-    publicPath: '/src/',
-    contentBase: path.resolve(__dirname, 'dist'),
-    watchContentBase: true,
-    compress: true,
-  },
-  plugins: [
-    // Add your plugins here
-    // Learn more obout plugins from https://webpack.js.org/configuration/plugins/
-    new HtmlWebpackPlugin({
-      title: 'RCRemote',
-      filename: 'RCRemote.html',
-      template: 'src/pug/index.pug',
-    }),
-    new MiniCssExtractPlugin({
-      filename: 'RCRemote.css',
-    }),
-  ],
-  module: {
-    rules: [
-      {
-        test: /\.pug$/,
-        use: ['simple-pug-loader']
-      },
-      {
-        test: /\.tsx?$/,
-        loader: 'ts-loader',
-        exclude: ['/node_modules/'],
-      },
-      {
-        test: /\.css$/i,
-        use: [
-          MiniCssExtractPlugin.loader,
-          'css-loader',
-          'postcss-loader'
-        ],
-      },
-      {
-        test: /\.(eot|svg|ttf|woff|woff2|png|jpg|gif)$/,
-        type: 'asset',
-      },
+const PATH = {
+  'prod': './config/webpack.prod.js',
+  'dev': './config/webpack.dev.js',
+}
 
-      // Add your rules for custom modules here
-      // Learn more about loaders from https://webpack.js.org/loaders/
-    ],
-  },
-  resolve: {
-    extensions: ['.tsx', '.ts', '.js'],
-  },
-};
+const MSG = 'Using configuration file --> ';
+
+module.exports = () => {
+  switch (TARGET) {
+    case 'build:dev':
+    case 'watch':
+    case 'serve':
+    default:
+      console.info(MSG + PATH.dev);
+      return require(PATH.dev);
+    case 'build':
+      console.info(MSG + PATH.prod);
+      return require(PATH.prod);
+  }
+}

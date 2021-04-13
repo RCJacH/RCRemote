@@ -2,3 +2,4 @@ sandbox/
 node_modules
 dists/
 dist/
+public/
