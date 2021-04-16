@@ -28,5 +28,7 @@
 
   &__info {
     flex: 3;
+    flex-direction: column;
+    padding: 5% 0;
   }
 }

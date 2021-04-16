@@ -60,11 +60,14 @@ function get_status_string(index: number): string {
   }
 }
 function set_transport_status(position: string) {
-  var obj = document.getElementById("status");
-  if (obj) {
+  var statusDom = document.getElementById("status");
+  if (statusDom) {
     var tmp = get_status_string(pinfo.transportState).toUpperCase();
-    tmp += (pinfo.lastPosition = position);
-    obj.innerHTML = tmp;
+    statusDom.innerHTML = tmp;
+  }
+  var posDom = document.getElementById("position");
+  if (posDom) {
+    posDom.innerHTML = (pinfo.lastPosition = position);
   }
 }
 
@@ -104,7 +107,6 @@ function toggle_button(
 }
 
 function toggle_button_hidden(id: string, state: boolean) {
-  console.log('toggle button: id %s, state %s', id, state);
   toggle_button(id, state, "-hidden");
 }
 
