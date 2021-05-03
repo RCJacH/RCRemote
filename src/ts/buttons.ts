@@ -41,12 +41,12 @@ function position_change(action_id: {[key: string]: number}): void {
 button_trigger("backward", () => position_change({
     "Beat": 41045,
     "Bar": 41043,
-    "Marker": 40173
+    "Marker": 40172
   })
 )
 button_trigger("forward", () => position_change({
     "Beat": 41044,
     "Bar": 41042,
-    "Marker": 40172
+    "Marker": 40173
   })
 )
