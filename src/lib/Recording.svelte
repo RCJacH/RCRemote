@@ -25,8 +25,10 @@
       Button(visual="{btn_playback_visual}", name="pause")
       Button(visual="{btn_playback_visual}", name="record")
       Button(visual="{btn_playback_visual}", name="stop")
+      Button(visual="{btn_playback_visual}", name="save")
       Button(visual="{btn_playback_visual}", name="abort")
       Button(visual="{btn_playback_visual}", name="undo")
+      Button(visual="{btn_playback_visual}", name="redo")
 </template>
 
 <style lang="postcss">
