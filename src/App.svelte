@@ -9,5 +9,9 @@
   {/if}
 </main>
 
-<style>
+<style global lang="postcss">
+  main {
+    height: 100vh;
+    margin: 0;
+  }
 </style>
