@@ -28,3 +28,47 @@
       Button(visual="{btn_playback_visual}", name="abort")
       Button(visual="{btn_playback_visual}", name="undo")
 </template>
+
+<style lang="postcss">
+  #transport {
+    display: flex;
+    flex: 1 0 auto;
+    flex-direction: column;
+    height: 100%;
+
+    .c-screen {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      flex-basis: 15%;
+      min-height: 75px;
+      max-height: 150px;
+      font-size: 4vh;
+      font-weight: 600;
+      text-transform: uppercase;
+    }
+  }
+
+  #settings {
+    display: flex;
+    flex-wrap: wrap;
+    flex-direction: column;
+    flex: 2;
+    justify-content: space-around;
+    div {
+      display: flex;
+      flex: 1 0 auto;
+    }
+  }
+
+  #playback {
+    display: flex;
+    flex-wrap: wrap;
+    flex: 6;
+    flex-direction: row;
+    :global(.c-button) {
+      max-width: 50%;
+      min-width: 35%;
+    }
+  }
+</style>
