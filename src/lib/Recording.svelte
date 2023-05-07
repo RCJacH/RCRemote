@@ -1,5 +1,6 @@
 <script lang="ts">
   import Button from "./Components/Button.svelte";
+  import Playback from "./Sections/Playback.svelte";
   export let page: string;
 
   const btn_setting_visual = "multi";
@@ -20,15 +21,7 @@
         Button(visual="{btn_setting_visual}", name="loop", content="Loop")
         Button(visual="{btn_setting_visual}", name="menu", content="Menu")
         Button(visual="{btn_setting_visual}", name="preroll", content="Preroll")
-    #playback
-      Button(visual="{btn_playback_visual}", name="play")
-      Button(visual="{btn_playback_visual}", name="pause")
-      Button(visual="{btn_playback_visual}", name="record")
-      Button(visual="{btn_playback_visual}", name="stop")
-      Button(visual="{btn_playback_visual}", name="save")
-      Button(visual="{btn_playback_visual}", name="abort")
-      Button(visual="{btn_playback_visual}", name="undo")
-      Button(visual="{btn_playback_visual}", name="redo")
+    Playback
 </template>
 
 <style lang="postcss">
@@ -60,17 +53,6 @@
     div {
       display: flex;
       flex: 1 0 auto;
-    }
-  }
-
-  #playback {
-    display: flex;
-    flex-wrap: wrap;
-    flex: 6;
-    flex-direction: row;
-    :global(.c-button) {
-      max-width: 50%;
-      min-width: 35%;
     }
   }
 </style>
