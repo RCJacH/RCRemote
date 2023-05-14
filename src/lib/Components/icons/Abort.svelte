@@ -1,0 +1,7 @@
+<template lang="pug">
+  symbol#o-icon-abort(viewBox="0 0 512 512")
+    circle(cx="256" cy="256" r="217" stroke-width="62" fill="none")/
+    g(transform="rotate(45 256 256)")
+      line(x1="256" y1="380" x2="256" y2="132" stroke-width="62" stroke-linecap="round")/
+      line(x1="132" y1="256" x2="380" y2="256" stroke-width="62" stroke-linecap="round")/
+</template>
