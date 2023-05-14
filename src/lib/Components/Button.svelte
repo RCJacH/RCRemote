@@ -5,16 +5,15 @@
   let id = name + "-button";
   let fn_name = "pressed_" + id + "()";
   let visual_classname = "c-button--" + visual;
-  let rcon_id = "#o-rcon-" + name;
+  let icon_id = "#o-icon-" + name;
 </script>
 
 <template lang="pug">
   .c-button.-base
-    button(class = "{visual_classname}", {id}) {content}
+    button(class = "{visual_classname}", {id}, on:click) {content}
       +if('!content')
-        .o-rcon
-          svg(viewBox="0 0 100 100")
-            use(xlink:href = "{rcon_id}")
+        svg.o-icon(viewBox="0 0 100 100")
+          use(xlink:href = "{icon_id}")
 </template>
 
 <style lang="postcss">
@@ -25,16 +24,20 @@
     justify-content: center;
     align-items: center;
     flex-direction: column;
+    width: 100%;
+    height: 100%;
 
     & button {
       border: 0;
     }
 
-    & .o-rcon {
+    & .o-icon {
+      display: flex;
+      justify-content: center;
+      align-items: center;
       z-index: 1;
       margin: auto;
-      position: relative;
-      top: 30%;
+      /* top: 30%; */
       width: 40%;
       height: 40%;
     }
