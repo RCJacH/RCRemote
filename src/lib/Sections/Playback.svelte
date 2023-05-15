@@ -19,7 +19,7 @@
       Button(visual="{visual_style}", name="stop")
       +else()
         Button(visual="{visual_style}", name="save")
-    +if('playstate&3')
+    +if('playstate==3')
       Button(visual="{visual_style}", name="abort")
       +elseif('undostate == 1')
         Button(visual="{visual_style}", name="redo")
