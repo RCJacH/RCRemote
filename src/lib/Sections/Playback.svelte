@@ -6,20 +6,23 @@
   export let playstate = -1;
   let undostate = 0;
   let allowPause = false;
+  let activatePlay = playstate >= 0 && playstate&1;
+  let activatePause = playstate >= 0 && playstate&2;
+  let activateRecord = playstate >= 0 && playstate&4;
 </script>
 
 <template lang="pug">
   #playback
     +if('playstate <= 0 || !allowPause')
-      Button(visual="{visual_style}", name="play")
+      Button(visual="{visual_style}", name="play", active="{activatePlay}")
       +elseif('playstate > 0 && allowPause')
-        Button(visual="{visual_style}", name="pause")
-    Button(visual="{visual_style}", name="record")
+        Button(visual="{visual_style}", name="pause", active="{activatePause}")
+    Button(visual="{visual_style}", name="record", active="{activateRecord}")
     +if('playstate > 0')
       Button(visual="{visual_style}", name="stop")
       +else()
         Button(visual="{visual_style}", name="save")
-    +if('playstate==3')
+    +if('activateRecord')
       Button(visual="{visual_style}", name="abort")
       +elseif('undostate == 1')
         Button(visual="{visual_style}", name="redo")
