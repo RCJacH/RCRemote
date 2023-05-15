@@ -2,6 +2,7 @@
   export let name: string;
   export let visual: string;
   export let content: string = "";
+  export let active: boolean = false;
   let id = name + "-button";
   let fn_name = "pressed_" + id + "()";
   let visual_classname = "c-button--" + visual;
@@ -10,7 +11,7 @@
 
 <template lang="pug">
   .c-button.-base
-    button(class = "{visual_classname}", {id}, on:click) {content}
+    button(class = "{visual_classname}{active ? ' -active' : ''}", {id}, on:click) {content}
       +if('!content')
         svg.o-icon(viewBox="0 0 100 100")
           use(xlink:href = "{icon_id}")
