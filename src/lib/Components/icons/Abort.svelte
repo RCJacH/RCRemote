@@ -5,3 +5,14 @@
       line(x1="256" y1="380" x2="256" y2="132" stroke-width="62" stroke-linecap="round")/
       line(x1="132" y1="256" x2="380" y2="256" stroke-width="62" stroke-linecap="round")/
 </template>
+
+<style lang="postcss" global>
+  #abort-button {
+    & .o-icon {
+      stroke: #b80d0d;
+    }
+    &:active .o-icon {
+      filter: brightness(115%);
+    }
+  }
+</style>
