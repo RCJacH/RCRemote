@@ -1,5 +1,7 @@
 <!-- Icon.svelte -->
 <script>
+  import Rewind from "./icons/Rewind.svelte";
+  import FForward from "./icons/FForward.svelte";
   import Save from "./icons/Save.svelte";
   import Abort from "./icons/Abort.svelte";
   import Pause from "./icons/Pause.svelte";
@@ -14,10 +16,12 @@
   svg(display="None")
     defs
       Abort
+      FForward
       Pause
       Play
       Record
       Redo
+      Rewind
       Save
       Stop
       Undo
