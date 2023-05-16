@@ -1,4 +1,5 @@
 <script lang="ts">
+  import Screen from "./Sections/Transport/Screen.svelte";
   import Button from "./Components/Button.svelte";
   import Playback from "./Sections/Transport/Playback.svelte";
   export let page: string;
@@ -9,8 +10,7 @@
 
 <template lang="pug">
   div#transport
-    .c-screen
-      #position.c-screen__info Initializing...
+    Screen
     #settings
       .position
         Button(visual="{btn_setting_visual}", name="position_unit", content="Bar")
@@ -30,19 +30,7 @@
     flex: 1 0 auto;
     flex-direction: column;
     height: 100%;
-
-    .c-screen {
-      display: flex;
-      justify-content: center;
-      align-items: center;
-      flex-basis: 15%;
-      min-height: 75px;
-      max-height: 150px;
-      font-size: 4vh;
-      font-weight: 600;
-      text-transform: uppercase;
     }
-  }
 
   #settings {
     display: flex;
