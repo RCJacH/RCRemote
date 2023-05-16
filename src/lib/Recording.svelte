@@ -5,7 +5,12 @@
   export let page: string;
 
   const btn_setting_visual = "multi";
-  const btn_playback_visual = "skeuomorphic";
+
+  let posUnits = ["Beat", "Bar", "Marker"];
+  let posUnitIndex = 0;
+  function cyclePositionUnit() {
+    posUnitIndex = (posUnitIndex + 1) % posUnits.length;
+  }
 </script>
 
 <template lang="pug">
@@ -13,15 +18,20 @@
     Screen
     #settings
       .position
-        Button(visual="{btn_setting_visual}", name="position_unit", content="Bar")
-        Button(visual="{btn_setting_visual}", name="rewind")
-        Button(visual="{btn_setting_visual}", name="fforward")
-        Button(visual="{btn_setting_visual}", name="goto", content="GoTo")
-      .options
-        Button(visual="{btn_setting_visual}", name="loop", content="Loop")
+        Button(
+          visual="{btn_setting_visual}",
+          name="position_unit",
+          content!="{posUnits[posUnitIndex]}",
+          on:click!="{(e) => cyclePositionUnit()}"
+        )
         Button(visual="{btn_setting_visual}", name="menu", content="Menu")
+        Button(visual="{btn_setting_visual}", name="position_range", content="Range")
+      .options
         Button(visual="{btn_setting_visual}", name="preroll", content="Preroll")
+        Button(visual="{btn_setting_visual}", name="metronome")
+        Button(visual="{btn_setting_visual}", name="loop", content="Loop")
     Playback
+    .open-tracks
 </template>
 
 <style lang="postcss">
@@ -30,7 +40,7 @@
     flex: 1 0 auto;
     flex-direction: column;
     height: 100%;
-    }
+  }
 
   #settings {
     display: flex;
