@@ -5,9 +5,8 @@
 
 <style lang="postcss" global>
   #play-button {
-    $color: #32cd32;
     & .o-icon {
-      fill: $color;
+      fill: var(--color-play-button);
       filter: brightness(0%);
     }
     &:active .o-icon {
