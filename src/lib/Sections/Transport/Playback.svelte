@@ -1,6 +1,6 @@
 <script lang="ts">
-  import Button from "../Components/Button.svelte";
-  import { commandID } from "../constants";
+  import Button from "../../Components/Button.svelte";
+  import { commandID } from "../../constants";
   const visual_style = "skeuomorphic";
 
   export let playstate = -1;
@@ -9,6 +9,15 @@
   let activatePlay = playstate >= 0 && playstate&1;
   let activatePause = playstate >= 0 && playstate&2;
   let activateRecord = playstate >= 0 && playstate&4;
+
+  function triggerUndo() {
+    console.log('triggered undo');
+    undostate = 1;
+  }
+  function triggerRedo() {
+    console.log('triggered redo');
+    undostate = 0;
+  }
 </script>
 
 <template lang="pug">
@@ -25,9 +34,9 @@
     +if('activateRecord')
       Button(visual="{visual_style}", name="abort")
       +elseif('undostate == 1')
-        Button(visual="{visual_style}", name="redo")
+        Button(visual="{visual_style}", name="redo", on:click!="{(e) => triggerRedo()}")
       +else()
-        Button(visual="{visual_style}", name="undo")
+        Button(visual="{visual_style}", name="undo", on:click!="{(e) => triggerUndo()}")
 </template>
 
 <style lang="postcss">

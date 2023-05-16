@@ -1,6 +1,6 @@
 <script lang="ts">
   import Button from "./Components/Button.svelte";
-  import Playback from "./Sections/Playback.svelte";
+  import Playback from "./Sections/Transport/Playback.svelte";
   export let page: string;
 
   const btn_setting_visual = "multi";
