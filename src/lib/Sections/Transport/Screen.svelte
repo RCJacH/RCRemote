@@ -1,7 +1,7 @@
 <script lang="ts">
-  import Button from "../../Components/Button.svelte";
-  export let status = -1;
-  export let position = "";
+  import Button from "./ScreenButton.svelte";
+  export let status = 1;
+  export let position = "12.2";
   function statusText(index: number): string {
     switch (index) {
       case -1:
@@ -24,9 +24,11 @@
 
 <template lang="pug">
   .c-screen
-    Button(visual="screen", name="rewind")
-    .c-screen__info {statusText(status) + position}
-    Button(visual="screen", name="fforward")
+    Button(name="rewind")
+    .c-screen__info
+      #status {statusText(status)}
+      #position {position}
+    Button(name="fforward")
 </template>
 
 <style lang="postcss">
@@ -45,8 +47,10 @@
     z-index: 100;
 
     &__info {
+      display: flex;
       flex: 3;
       flex-direction: column;
+      align-items: center;
       padding: 5% 0;
     }
   }

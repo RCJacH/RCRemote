@@ -1,20 +1,17 @@
 <script lang="ts">
   export let name: string;
-  export let visual: string;
   export let content: string = "";
-  export let active: boolean = false;
-  let id = name + "-button";
-  let fn_name = "pressed_" + id + "()";
-  let visual_classname = "c-button--" + visual;
-  let icon_id = "#o-icon-" + name;
+  let clazz = "";
+  export { clazz as class };
 </script>
 
 <template lang="pug">
   .c-button.-base
-    button(class = "{visual_classname}{active ? ' -active' : ''}", {id}, on:click) {content}
-      +if('!content')
-        svg.o-icon(viewBox="0 0 100 100")
-          use(xlink:href = "{icon_id}")
+    slot
+      button(class="{clazz}", id!="{name+'-button'}", on:click) {content}
+        +if('!content')
+          svg.o-icon(viewBox="0 0 100 100")
+            use(xlink:href!="{'#o-icon-'+name}")
 </template>
 
 <style lang="postcss">
@@ -41,49 +38,6 @@
       /* top: 30%; */
       width: 40%;
       height: 40%;
-    }
-
-    &--screen {
-      display: flex;
-      justify-content: center;
-      width: 100%;
-      height: 100%;
-      background-color: transparent;
-      flex: 1;
-      opacity: 0;
-      transition: opacity 50ms ease-out;
-
-      &:hover {
-        opacity: 0.4;
-      }
-      &:active {
-        opacity: 0.8;
-      }
-    }
-
-    &--skeuomorphic {
-      $size: 80%;
-      $margin: (100% - 80%) / 2;
-      $color: black;
-
-      width: $size;
-      height: $size;
-      border-radius: 15%;
-      /* background: $color-screen-display; */
-      fill: $color;
-      transition: all 100ms cubic-bezier(0.175, 0.885, 0.32, 1.275);
-      box-shadow: 0px -0.375rem 0.625rem white,
-        0px 0.25rem 0.938rem rgba(0, 0, 0, 0.15);
-      cursor: pointer;
-      &:active {
-        box-shadow: 0 0.938rem 1.25rem rgba(0, 0, 0, 0.02);
-        transform: translate(0, 5%);
-        &:after {
-          content: "";
-          box-shadow: inset 0px -0.125rem 0.313rem white,
-            inset 0px 0.125rem 0.313rem rgba(0, 0, 0, 0.15);
-        }
-      }
     }
   }
 </style>

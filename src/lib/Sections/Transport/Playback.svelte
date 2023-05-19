@@ -1,7 +1,6 @@
 <script lang="ts">
-  import Button from "../../Components/Button.svelte";
+  import Button from "./PlaybackButton.svelte";
   import { commandID } from "../../constants";
-  const visual_style = "skeuomorphic";
 
   export let playstate = -1;
   let undostate = 0;
@@ -23,20 +22,20 @@
 <template lang="pug">
   #playback
     +if('playstate <= 0 || !allowPause')
-      Button(visual="{visual_style}", name="play", active="{activatePlay}")
+      Button(name="play", active="{activatePlay}")
       +elseif('playstate > 0 && allowPause')
-        Button(visual="{visual_style}", name="pause", active="{activatePause}")
-    Button(visual="{visual_style}", name="record", active="{activateRecord}")
+        Button(name="pause", active="{activatePause}")
+    Button(name="record", active="{activateRecord}")
     +if('playstate > 0')
-      Button(visual="{visual_style}", name="stop")
+      Button(name="stop")
       +else()
-        Button(visual="{visual_style}", name="save")
+        Button(name="save")
     +if('activateRecord')
-      Button(visual="{visual_style}", name="abort")
+      Button(name="abort")
       +elseif('undostate == 1')
-        Button(visual="{visual_style}", name="redo", on:click!="{(e) => triggerRedo()}")
+        Button(name="redo", on:click!="{(e) => triggerRedo()}")
       +else()
-        Button(visual="{visual_style}", name="undo", on:click!="{(e) => triggerUndo()}")
+        Button(name="undo", on:click!="{(e) => triggerUndo()}")
 </template>
 
 <style lang="postcss">
