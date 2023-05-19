@@ -10,7 +10,7 @@
 
 <template lang="pug">
   #settings
-    ButtonBase#position
+    ButtonBase
       Button#position-unit(
         iconname!="{posUnits[posUnitIndex]}",
         content!="{posUnits[posUnitIndex]}",
@@ -19,7 +19,7 @@
       )
       Button#menu(baseless)
       Button#range(content="Range", baseless)
-    ButtonBase#settings
+    ButtonBase
       Button#preroll(content="Preroll", baseless)
       Button#metronome(baseless)
       Button#loop(baseless)

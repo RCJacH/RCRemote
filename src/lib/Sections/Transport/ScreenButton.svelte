@@ -2,7 +2,7 @@
   import Button from "../../Components/Button.svelte";
   let name;
   export { name as id };
-  let clazz;
+  let clazz = "";
   export { clazz as class };
 </script>
 
