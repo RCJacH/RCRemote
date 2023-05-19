@@ -24,11 +24,11 @@
 
 <template lang="pug">
   .c-screen
-    Button(name="rewind")
+    Button#rewind
     .c-screen__info
       #status {statusText(status)}
       #position {position}
-    Button(name="fforward")
+    Button#fforward
 </template>
 
 <style lang="postcss">

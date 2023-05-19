@@ -26,3 +26,12 @@
       Stop
       Undo
 </template>
+
+<style lang="postcss" global>
+  .o-icon {
+    z-index: 1;
+    margin: auto;
+    width: 40%;
+    height: 40%;
+  }
+</style>

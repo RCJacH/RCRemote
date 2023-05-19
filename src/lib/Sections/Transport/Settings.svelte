@@ -1,5 +1,6 @@
 <script lang="ts">
-  import Button from "./SettingsButton.svelte";
+  import ButtonBase from "./SettingsButton.svelte";
+  import Button from "../../Components/Button.svelte";
   let posUnits = ["beat", "measure", "marker"];
   let posUnitIndex = 0;
   function cyclePositionUnit() {
@@ -9,17 +10,19 @@
 
 <template lang="pug">
   #settings
-    .position
-      Button(
-        name!="{posUnits[posUnitIndex]}",
+    ButtonBase#position
+      Button#position-unit(
+        iconname!="{posUnits[posUnitIndex]}",
+        content!="{posUnits[posUnitIndex]}",
         on:click!="{(e) => cyclePositionUnit()}"
+        baseless
       )
-      Button(name="menu", content="Menu")
-      Button(name="position_range", content="Range")
-    .options
-      Button(name="preroll", content="Preroll")
-      Button(name="metronome")
-      Button(name="loop", content="Loop")
+      Button#menu(baseless)
+      Button#range(content="Range", baseless)
+    ButtonBase#settings
+      Button#preroll(content="Preroll", baseless)
+      Button#metronome(baseless)
+      Button#loop(baseless)
 </template>
 
 <style lang="postcss">
@@ -29,9 +32,5 @@
     flex-direction: column;
     flex: 2;
     justify-content: space-around;
-    div {
-      display: flex;
-      flex: 1 0 auto;
-    }
   }
 </style>

@@ -22,20 +22,20 @@
 <template lang="pug">
   #playback
     +if('playstate <= 0 || !allowPause')
-      Button(name="play", active="{activatePlay}")
+      Button#play(active="{activatePlay}")
       +elseif('playstate > 0 && allowPause')
-        Button(name="pause", active="{activatePause}")
-    Button(name="record", active="{activateRecord}")
+        Button#pause(active="{activatePause}")
+    Button#record(active="{activateRecord}")
     +if('playstate > 0')
-      Button(name="stop")
+      Button#stop()
       +else()
-        Button(name="save")
+        Button#save()
     +if('activateRecord')
-      Button(name="abort")
+      Button#abort()
       +elseif('undostate == 1')
-        Button(name="redo", on:click!="{(e) => triggerRedo()}")
+        Button#redo(on:click!="{(e) => triggerRedo()}")
       +else()
-        Button(name="undo", on:click!="{(e) => triggerUndo()}")
+        Button#undo(on:click!="{(e) => triggerUndo()}")
 </template>
 
 <style lang="postcss">

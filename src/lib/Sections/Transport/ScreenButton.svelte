@@ -1,10 +1,17 @@
 <script lang="ts">
   import Button from "../../Components/Button.svelte";
-  export let name: string;
+  let name;
+  export { name as id };
+  let clazz;
+  export { clazz as class };
 </script>
 
 <template lang="pug">
-  Button.c-button--screen({name})
+  Button(
+    id="{name}",
+    class!="{'c-button--screen' + (clazz ? ' ' + clazz : '')}",
+    on:click
+  )
 </template>
 
 <style lang="postcss" global>

@@ -1,11 +1,15 @@
 <script lang="ts">
   import Button from "../../Components/Button.svelte";
-  export let name: string;
-  export let active = false;
+  export let active: boolean;
+  export let id: string;
 </script>
 
 <template lang="pug">
-  Button.c-button--skeuomorphic({name}, class!="{active? '-active': ''}")
+  Button.c-button--skeuomorphic(
+    {id},
+    {active},
+    on:click
+  )
 </template>
 
 <style lang="postcss" global>
