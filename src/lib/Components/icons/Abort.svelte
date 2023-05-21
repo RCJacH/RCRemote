@@ -9,7 +9,7 @@
 <style lang="postcss" global>
   #abort-button {
     & .o-icon {
-      stroke: #b80d0d;
+      stroke: var(--color-abort-button);
     }
     &:active .o-icon {
       filter: brightness(115%);

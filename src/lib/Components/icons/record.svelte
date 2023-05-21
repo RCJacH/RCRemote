@@ -5,9 +5,8 @@
 
 <style lang="postcss" global>
   #record-button {
-    $color: #dc143c;
     & .o-icon {
-      stroke: $color;
+      stroke: var(--color-record-button);
     }
     &:active .o-icon {
       filter: brightness(105%);
