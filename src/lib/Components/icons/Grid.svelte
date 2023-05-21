@@ -1,0 +1,17 @@
+<template lang="pug">
+  - var sw = 48;
+  - var margin = 32;
+  - var len = 512 - margin;
+  - var cross = margin * 3;
+  - var entries = [cross, 256, 512-cross];
+  symbol#o-icon-grid(viewBox="0 0 512 512" stroke-width=sw stroke-linecap="round")
+    each pos in entries
+      line(x1=margin x2=len y1=pos y2=pos)/
+      line(x1=pos x2=pos y1=margin y2=len)/
+</template>
+
+<style lang="postcss">
+  #o-icon-grid {
+    stroke: black;
+  }
+</style>

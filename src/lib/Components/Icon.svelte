@@ -3,6 +3,8 @@
   import Abort from "./icons/Abort.svelte";
   import BeatUnit from "./icons/BeatUnit.svelte";
   import FForward from "./icons/FForward.svelte";
+  import Frame from "./icons/Frame.svelte";
+  import Grid from "./icons/Grid.svelte";
   import Loop from "./icons/Loop.svelte";
   import Marker from "./icons/Marker.svelte";
   import MarkerUnit from "./icons/MarkerUnit.svelte";
@@ -31,6 +33,8 @@
       Abort
       BeatUnit
       FForward
+      Frame
+      Grid
       Loop
       Marker
       MarkerUnit
