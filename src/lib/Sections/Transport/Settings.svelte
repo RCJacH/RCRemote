@@ -6,6 +6,11 @@
   function cyclePositionUnit() {
     posUnitIndex = (posUnitIndex + 1) % posUnits.length;
   }
+  let rangeUnits = ["hide", "marker", "region"];
+  let rangeUnitIndex = 0;
+  function cycleRangeUnit() {
+    rangeUnitIndex = (rangeUnitIndex + 1) % rangeUnits.length;
+  }
 </script>
 
 <template lang="pug">
@@ -13,11 +18,15 @@
     ButtonBase
       Button#position-unit(
         iconname!="{posUnits[posUnitIndex]+'unit'}",
-        on:click!="{(e) => cyclePositionUnit()}"
+        on:click!="{() => cyclePositionUnit()}"
         baseless
       )
       Button#menu(baseless)
-      Button#range(content="Range", baseless)
+      Button#display-range(
+        iconname!="{rangeUnits[rangeUnitIndex]+'range'}",
+        on:click!="{() => cycleRangeUnit()}"
+        baseless
+      )
     ButtonBase
       Button#preroll(baseless)
       Button#metronome(baseless)
