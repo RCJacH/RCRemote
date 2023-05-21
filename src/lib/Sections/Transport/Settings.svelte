@@ -12,8 +12,7 @@
   #settings
     ButtonBase
       Button#position-unit(
-        iconname!="{posUnits[posUnitIndex]}",
-        content!="{posUnits[posUnitIndex]}",
+        iconname!="{posUnits[posUnitIndex]+'unit'}",
         on:click!="{(e) => cyclePositionUnit()}"
         baseless
       )

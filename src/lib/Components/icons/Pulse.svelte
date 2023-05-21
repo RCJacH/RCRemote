@@ -1,0 +1,27 @@
+<template lang="pug">
+  - var s = 32;
+  - var liney = 512 * 5 / 8;
+  - var lineRatio = 3 / 8;
+  - var lineEndX = 512 * lineRatio;
+  - var pulseStartX = 256 - (256 - lineEndX) / 2;
+  - var pulseEndX = 256 + (256 - lineEndX) / 2;
+
+  symbol#o-icon-pulse(viewBox="0 0 512 512")
+    - var p0 = "0," + liney;
+    - var p1 = lineEndX + "," + liney;
+    - var p2 = pulseStartX + "," + s;
+    - var p3 = pulseEndX + "," + (512 - s);
+    - var p4 = (512 - lineEndX) + "," + liney;
+    - var p5 = "512," + liney;
+    polyline(
+      points=p0 + " " + p1 + " " + p2 + " " + p3 + " " + p4 + " " + p5
+      stroke-width=s
+      fill="none"
+    )/
+</template>
+
+<style lang="postcss">
+  #o-icon-pulse {
+    stroke: black;
+  }
+</style>
