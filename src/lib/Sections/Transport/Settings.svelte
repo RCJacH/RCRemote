@@ -19,7 +19,7 @@
       Button#menu(baseless)
       Button#range(content="Range", baseless)
     ButtonBase
-      Button#preroll(content="Preroll", baseless)
+      Button#preroll(baseless)
       Button#metronome(baseless)
       Button#loop(baseless)
 </template>
