@@ -1,7 +1,22 @@
 <script lang="ts">
   import Button from "./ScreenButton.svelte";
-  export let status = 1;
-  export let position = "12.2";
+  import { response } from "../../../scripts/requests";
+
+  export let state = -1;
+  export let position = "";
+
+  response.subscribe((result) => {
+    if ("transport" in result) {
+      let transport: Object = result.transport;
+      if ("state" in transport) {
+        state = transport.state as number;
+      }
+      if ("position" in transport) {
+        position = transport.position as string;
+      }
+    }
+  });
+
   function statusText(index: number): string {
     switch (index) {
       case -1:
@@ -26,7 +41,7 @@
   .c-screen
     Button#rewind
     .c-screen__info
-      #status {statusText(status)}
+      #status {statusText(state)}
       #position {position}
     Button#fforward
 </template>

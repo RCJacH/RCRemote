@@ -1,6 +1,18 @@
 <script lang="ts">
   import Icon from "./lib/Components/Icon.svelte";
   import Recording from "./lib/Recording.svelte";
+  import { addRecur, update } from "./scripts/requests";
+  import { onMount } from "svelte";
+
+  function getReply() {
+    update();
+  }
+
+  onMount(() => {
+    addRecur("TRANSPORT;BEATPOS", 10);
+    getReply();
+  });
+
   export let page = "recording";
 </script>
 
