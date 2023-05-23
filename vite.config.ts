@@ -1,6 +1,7 @@
 import { defineConfig } from 'vite'
 import { svelte } from '@sveltejs/vite-plugin-svelte'
 import { viteSingleFile } from 'vite-plugin-singlefile'
+import { viteMockServe } from 'vite-plugin-mock'
 
 /**
  * @param newFilename {string}
@@ -22,6 +23,7 @@ const renameIndexPlugin = (newFilename) => {
 export default defineConfig({
   plugins: [
     svelte(),
+    viteMockServe(),
     viteSingleFile(),
     renameIndexPlugin('rcremote.html')
   ]

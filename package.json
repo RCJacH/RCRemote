@@ -13,6 +13,7 @@
     "@sveltejs/vite-plugin-svelte": "^2.0.3",
     "@tsconfig/svelte": "^4.0.1",
     "autoprefixer": "^10.4.14",
+    "mockjs": "^1.1.0",
     "postcss": "^8.4.23",
     "postcss-import": "^15.1.0",
     "postcss-initial": "^3.0.4",
@@ -26,6 +27,7 @@
     "tslib": "^2.5.0",
     "typescript": "^5.0.2",
     "vite": "^4.3.2",
+    "vite-plugin-mock": "v2.9.8",
     "vite-plugin-singlefile": "^0.13.5"
   }
 }
