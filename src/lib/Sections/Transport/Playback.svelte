@@ -1,41 +1,67 @@
 <script lang="ts">
   import Button from "./PlaybackButton.svelte";
   import { commandID } from "../../constants";
+  import { response, addCommand } from "../../../scripts/requests";
 
-  export let playstate = -1;
-  let undostate = 0;
+  export let state = -1;
+
   let allowPause = false;
-  let activatePlay = playstate >= 0 && playstate&1;
-  let activatePause = playstate >= 0 && playstate&2;
-  let activateRecord = playstate >= 0 && playstate&4;
+  let undostate = 0;
+  $: activatePlay = state >= 0 && state&1;
+  $: activatePause = state >= 0 && state&2;
+  $: activateRecord = state >= 0 && state&4;
 
+  function triggerPlay() {
+    addCommand(commandID.transport.play);
+  }
+  function triggerPause() {
+    addCommand(commandID.transport.pause);
+  }
+  function triggerRecord() {
+    addCommand(commandID.transport.record);
+  }
+  function triggerStop() {
+    addCommand(commandID.transport.stop);
+  }
+  function triggerSave() {
+    addCommand(commandID.project.save);
+  }
   function triggerUndo() {
-    console.log('triggered undo');
+    addCommand(commandID.project.undo);
     undostate = 1;
   }
   function triggerRedo() {
-    console.log('triggered redo');
+    addCommand(commandID.project.redo);
     undostate = 0;
   }
 </script>
 
 <template lang="pug">
   #playback
-    +if('playstate <= 0 || !allowPause')
-      Button#play(active="{activatePlay}")
-      +elseif('playstate > 0 && allowPause')
-        Button#pause(active="{activatePause}")
-    Button#record(active="{activateRecord}")
-    +if('playstate > 0')
-      Button#stop()
+    +if('state <= 0 || !allowPause')
+      Button#play(
+        active="{activatePlay}"
+        on:click!="{triggerPlay}"
+      )
+      +elseif('state > 0 && allowPause')
+        Button#pause(
+          active="{activatePause}"
+          on:click!="{triggerPause}"
+        )
+    Button#record(
+      active="{activateRecord}"
+      on:click!="{triggerRecord}"
+    )
+    +if('state > 0')
+      Button#stop(on:click!="{triggerStop}")
       +else()
-        Button#save()
+        Button#save(on:click!="{triggerSave}")
     +if('activateRecord')
       Button#abort()
       +elseif('undostate == 1')
-        Button#redo(on:click!="{(e) => triggerRedo()}")
+        Button#redo(on:click!="{triggerRedo}")
       +else()
-        Button#undo(on:click!="{(e) => triggerUndo()}")
+        Button#undo(on:click!="{triggerUndo}")
 </template>
 
 <style lang="postcss">

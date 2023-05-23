@@ -1,21 +1,10 @@
 <script lang="ts">
   import Button from "./ScreenButton.svelte";
-  import { response } from "../../../scripts/requests";
+  import { commandID } from "../../constants";
+  import { addCommand } from "../../../scripts/requests";
 
-  export let state = -1;
-  export let position = "";
-
-  response.subscribe((result) => {
-    if ("transport" in result) {
-      let transport: Object = result.transport;
-      if ("state" in transport) {
-        state = transport.state as number;
-      }
-      if ("position" in transport) {
-        position = transport.position as string;
-      }
-    }
-  });
+  export let state;
+  export let position;
 
   function statusText(index: number): string {
     switch (index) {
