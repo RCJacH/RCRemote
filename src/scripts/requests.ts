@@ -29,7 +29,7 @@ function initxmlhttp() {
   return xmlhttp;
 }
 
-function addCommand(name: string) {
+function addCommand(name: string | number) {
   once += name + ";";
 }
 

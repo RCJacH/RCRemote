@@ -1,8 +1,15 @@
+interface CommandState {
+  id: string;
+  state: boolean;
+}
+
 interface Response {
   transport?: {
     position: string;
+    isRepeatOn: boolean;
     state: number;
-  }
+  };
+  cmdstate?: CommandState[];
 }
 
 function wwr_onreply(results: string) {
@@ -15,14 +22,22 @@ function wwr_onreply(results: string) {
   return result;
 }
 
-function parse_tokens(tok: string[], obj: Response) {
+function parse_tokens(tok: string[], result: Response) {
   switch (tok[0]) {
     case "TRANSPORT":
       let transport = parse_transport_tokens(tok);
       if (transport) {
-        obj["transport"] = transport;
+        result["transport"] = transport;
       }
+      break;
     case "CMDSTATE":
+      let cmdstate: CommandState = parse_cmdstate(tok);
+      if (cmdstate) {
+        if (!("cmdstate" in result)) {
+          result["cmdstate"] = [];
+        }
+        result["cmdstate"].push(cmdstate);
+      }
       break;
     case "SEND":
       break;
@@ -36,15 +51,22 @@ function parse_tokens(tok: string[], obj: Response) {
 function parse_transport_tokens(tok: string[]) {
   if (tok.length > 4) {
     let transportState = parseInt(tok[1]);
-    // if (tok[3] != last_repeat) {
-    //   last_repeat = tok[3];
-    // }
+    let isRepeatOn = parseInt(tok[3]) == 1;
     let position = tok[4];
     if (transportState >= 0 && position)
       return {
         state: transportState,
-        position: position
+        isRepeatOn: isRepeatOn,
+        position: position,
       }
+  }
+}
+
+function parse_cmdstate(tok: string[]): CommandState {
+  if (tok.length != 3 || tok[2] == '-1') { return; }
+  return {
+    id: tok[1],
+    state: tok[2] == "1"
   }
 }
 

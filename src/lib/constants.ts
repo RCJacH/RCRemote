@@ -2,6 +2,7 @@ export const commandID = {
   toggle: {
     loop: 1068,
     preroll: 41819,
+    metronome: 40364,
   },
   transport: {
     play: 1007,

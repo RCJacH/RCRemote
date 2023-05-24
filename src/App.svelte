@@ -3,6 +3,7 @@
   import Recording from "./lib/Recording.svelte";
   import { addRecur, update } from "./scripts/requests";
   import { onMount } from "svelte";
+  import { commandID } from "./lib/constants";
 
   function getReply() {
     update();
@@ -10,6 +11,10 @@
 
   onMount(() => {
     addRecur("TRANSPORT;BEATPOS", 10);
+    addRecur(
+      `GET/${commandID.toggle.preroll};GET/${commandID.toggle.metronome}`,
+      10
+    );
     getReply();
   });
 
