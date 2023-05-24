@@ -1,7 +1,7 @@
 <script lang="ts">
   import Button from "./PlaybackButton.svelte";
-  import { commandID } from "../../constants";
-  import { response, addCommand } from "../../../scripts/requests";
+  import { commandID } from "@scripts/constants";
+  import { response, addCommand } from "@scripts/requests";
 
   export let state = -1;
 

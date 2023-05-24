@@ -7,4 +7,8 @@ export default {
   preprocess: [
     sveltePreprocess({ postcss: true }),
   ],
+  compilerOptions: {
+    // NOTE: this is a workaround and may be needed until it's fixed in Svelte
+    accessors: true,
+  },
 }

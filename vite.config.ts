@@ -29,6 +29,12 @@ export default defineConfig(({ mode }) => {
       isDev ? mockServer : [],
       viteSingleFile(),
       renameIndexPlugin('rcremote.html')
-    ]
+    ],
+    resolve: {
+      alias: {
+        '@scripts': '/src/scripts',
+        '@components': '/src/lib/components',
+      }
+    }
   };
 });

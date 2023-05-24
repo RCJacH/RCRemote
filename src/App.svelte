@@ -1,9 +1,9 @@
 <script lang="ts">
   import Icon from "./lib/Components/Icon.svelte";
   import Recording from "./lib/Recording.svelte";
-  import { addRecur, update } from "./scripts/requests";
   import { onMount } from "svelte";
-  import { commandID } from "./lib/constants";
+  import { addRecur, update } from "@scripts/requests";
+  import { commandID } from "@scripts/constants";
 
   function getReply() {
     update();

@@ -1,5 +1,5 @@
 <script lang="ts">
-  import Button from "../../Components/Button.svelte";
+  import Button from "@components/Button.svelte";
   export let active: boolean = false;
   export let id: string;
 </script>
