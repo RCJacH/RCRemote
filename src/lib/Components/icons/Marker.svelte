@@ -11,7 +11,7 @@
     path(
       stroke-width=s
       fill="None"
-      d="M"+x1+','+y1 + ' H'+x2 + ' V'+y2 +' L256,'+y3 + 'L'+x1+','+y2+'z M256,'+(y3+hs) +' V'+(512-hs)
+      d=`M${x1},${y1} H${x2} V${y2} L256,${y3} L${x1},${y2}z M256,${(y3+hs)} V${(512-hs)}`
     )
     //- path(stroke-width=s fill="none"
     //-   d="M208,194 v-112 h36 M256,80 v112 M304,192 v-112 h-36"

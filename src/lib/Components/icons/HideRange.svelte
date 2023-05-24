@@ -8,7 +8,7 @@
   - var edge = 512 - hsw;
   symbol#o-icon-hiderange(viewBox="0 0 512 512")
     polyline(
-      points=hsw+','+(edge-h) + ' ' + hsw+','+edge + ' ' + edge+','+edge + ' ' + edge+','+(edge-h)
+      points=`${hsw},${(edge-h)} ${hsw},${edge} ${edge},${edge} ${edge},${(edge-h)}`
       fill="none"
       stroke="black"
       stroke-width=sw
