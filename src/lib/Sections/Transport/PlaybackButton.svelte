@@ -15,25 +15,27 @@
 <style lang="postcss" global>
   .c-button--skeuomorphic {
     $size: 80%;
-    $margin: (100% - 80%) / 2;
-    $color: black;
 
     width: $size;
     height: $size;
     border-radius: 15%;
-    fill: $color;
-    transition: all 100ms cubic-bezier(0.175, 0.885, 0.32, 1.275);
-    box-shadow: 0px -0.375rem 0.625rem white,
-      0px 0.25rem 0.938rem rgba(0, 0, 0, 0.15);
-    cursor: pointer;
+    background-color: var(--color-button_bg);
+    filter: brightness(101%);
+    border: 0 solid var(--color-button_border);
+    transition: all 150ms cubic-bezier(0.175, 0.885, 0.32, 1.275);
+    box-shadow: -0.375em -0.375em 1.625em rgba(255, 255, 255, 0.83),
+      0.3125em 0.625em 0.9375em rgba(0, 0, 0, 0.05),
+      0.9375em 1.25em 2.1875em rgba(0, 0, 0, 0.1),
+      inset -0.125em -0.125em 0.125em rgba(0, 0, 0, 0.1),
+      inset -0.0625em -0.0625em 0.1875em rgba(255, 255, 255, 0.6),
+      inset 0.125em 0.125em 0.5em rgba(255, 255, 255, 0.2),
+      inset 0.0625em 0.0625em 0.5em rgba(255, 255, 255, 0.2),
+      -0.375em -0.375em 1.625em rgba(255, 255, 255, 0.8);
     &:active {
-      box-shadow: 0 0.938rem 1.25rem rgba(0, 0, 0, 0.02);
+      box-shadow: none;
+      border-width: 0.0625rem;
       transform: translate(0, 5%);
-      &:after {
-        content: "";
-        box-shadow: inset 0px -0.125rem 0.313rem white,
-          inset 0px 0.125rem 0.313rem rgba(0, 0, 0, 0.15);
-      }
+      filter: none;
     }
   }
 </style>

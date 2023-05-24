@@ -16,9 +16,9 @@
       id!="{name+'-button'}",
       on:click
     ) {content}
-      +if('!content')
-        svg.o-icon(viewBox="0 0 100 100")
-          use(xlink:href!="{'#o-icon-'+(iconname? iconname : name)}")
+        +if('!content')
+          svg.o-icon(viewBox="0 0 100 100")
+            use(xlink:href!="{'#o-icon-'+(iconname? iconname : name)}")
 
   +if('baseless')
     +clickable
@@ -40,7 +40,11 @@
     height: 100%;
 
     & button {
-      border: 0;
+      cursor: pointer;
+    }
+
+    &.-base {
+      background-color: transparent;
     }
   }
 </style>
