@@ -26,6 +26,9 @@
   function triggerSave() {
     addCommand(commandID.project.save);
   }
+  function triggerAbort() {
+    addCommand(commandID.transport.abort);
+  }
   function triggerUndo() {
     addCommand(commandID.project.undo);
     undostate = 1;
@@ -57,7 +60,7 @@
       +else()
         Button#save(on:click!="{triggerSave}")
     +if('activateRecord')
-      Button#abort()
+      Button#abort(on:click!="{triggerAbort}")
       +elseif('undostate == 1')
         Button#redo(on:click!="{triggerRedo}")
       +else()
