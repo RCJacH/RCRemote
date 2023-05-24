@@ -27,7 +27,6 @@
     "tslib": "^2.5.0",
     "typescript": "^5.0.2",
     "vite": "^4.3.2",
-    "vite-plugin-mock": "v2.9.8",
     "vite-plugin-singlefile": "^0.13.5"
   }
 }
