@@ -11,12 +11,12 @@ export const commandID = {
     abort: 40668,
     rewind: {
       beat: 41045,
-      bar: 41043,
+      measure: 41043,
       marker: 40172,
     },
     fforward: {
       beat: 41044,
-      bar: 41042,
+      measure: 41042,
       marker: 40173,
     },
   },

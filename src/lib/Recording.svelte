@@ -13,6 +13,8 @@
   let isPrerollOn: boolean = false;
   let isMetronomeOn: boolean = false;
   let isRepeatOn: boolean = false;
+  let posName: string;
+  let rangeName: string;
 
   response.subscribe((result) => {
     if ("transport" in result) {
@@ -38,8 +40,19 @@
 
 <template lang="pug">
   div#transport
-    Screen({state} {position})
-    Settings({isPrerollOn} {isMetronomeOn} {isRepeatOn})
+    Screen(
+      {state}
+      {position}
+      {posName}
+      {rangeName}
+    )
+    Settings(
+      {isPrerollOn}
+      {isMetronomeOn}
+      {isRepeatOn}
+      on:posNameChange!="{(e) => posName = e.detail}"
+      on:rangeNameChange!="{(e) => rangeName = e.detail}"
+    )
     Playback({state})
     .open-tracks
 </template>

@@ -3,8 +3,10 @@
   import { commandID } from "../../constants";
   import { addCommand } from "../../../scripts/requests";
 
-  export let state;
-  export let position;
+  export let state: number;
+  export let position: string;
+  export let posName: string;
+  export let rangeName: string;
 
   function statusText(index: number): string {
     switch (index) {
@@ -24,15 +26,23 @@
         return "";
     }
   }
+
+  function triggerRewind() {
+    addCommand(commandID.transport.rewind[posName]);
+  }
+
+  function triggerFForward() {
+    addCommand(commandID.transport.fforward[posName]);
+  }
 </script>
 
 <template lang="pug">
   .c-screen
-    Button#rewind
+    Button#rewind(on:click="{triggerRewind}")
     .c-screen__info
       #status {statusText(state)}
       #position {position}
-    Button#fforward
+    Button#fforward(on:click="{triggerFForward}")
 </template>
 
 <style lang="postcss">

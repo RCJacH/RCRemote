@@ -3,17 +3,30 @@
   import Button from "../../Components/Button.svelte";
   import { response, addCommand } from "../../../scripts/requests";
   import { commandID } from "../../constants";
+  import { createEventDispatcher, onMount } from "svelte";
+  const dispatch = createEventDispatcher();
 
   let posUnits = ["beat", "measure", "marker"];
   let posUnitIndex = 0;
-  function cyclePositionUnit() {
-    posUnitIndex = (posUnitIndex + 1) % posUnits.length;
+  $: posName = posUnits[posUnitIndex];
+  $: dispatch("posNameChange", posName);
+  function cyclePositionUnit(i?: number) {
+    i ||= posUnitIndex;
+    posUnitIndex = (i + 1) % posUnits.length;
   }
+
   let rangeUnits = ["hide", "marker", "region"];
   let rangeUnitIndex = 0;
-  function cycleRangeUnit() {
-    rangeUnitIndex = (rangeUnitIndex + 1) % rangeUnits.length;
+  $: rangeName = rangeUnits[rangeUnitIndex];
+  $: dispatch("rangeNameChange", rangeName);
+  function cycleRangeUnit(i?: number) {
+    i ||= rangeUnitIndex;
+    rangeUnitIndex = (i + 1) % rangeUnits.length;
   }
+  onMount(() => {
+    cyclePositionUnit();
+    cycleRangeUnit();
+  });
 
   function triggerPreroll() {
     addCommand(commandID.toggle.preroll);
@@ -36,13 +49,13 @@
   #settings
     ButtonBase
       Button#position-unit(
-        iconname!="{posUnits[posUnitIndex]+'unit'}",
+        iconname!="{posName+'unit'}",
         on:click!="{() => cyclePositionUnit()}"
         baseless
       )
       Button#menu(baseless)
       Button#display-range(
-        iconname!="{rangeUnits[rangeUnitIndex]+'range'}",
+        iconname!="{rangeName+'range'}",
         on:click!="{() => cycleRangeUnit()}"
         baseless
       )
