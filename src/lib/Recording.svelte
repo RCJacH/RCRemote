@@ -10,9 +10,9 @@
 
   let state: number = -1;
   let position: string = "";
-  let isPrerollOn: boolean;
-  let isMetronomeOn: boolean;
-  let isRepeatOn: boolean;
+  let isPrerollOn: boolean = false;
+  let isMetronomeOn: boolean = false;
+  let isRepeatOn: boolean = false;
 
   response.subscribe((result) => {
     if ("transport" in result) {
@@ -22,12 +22,14 @@
       position = transport.position;
     }
     if ("cmdstate" in result) {
-      for (let t in result.cmdstate) {
+      for (let t of result.cmdstate) {
         switch (t.id) {
           case commandID.toggle.metronome.toString():
             isMetronomeOn = t.state;
+            break;
           case commandID.toggle.preroll.toString():
             isPrerollOn = t.state;
+            break;
         }
       }
     }
