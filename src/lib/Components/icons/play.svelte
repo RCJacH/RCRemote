@@ -6,14 +6,14 @@
 <style lang="postcss" global>
   #play-button {
     & .o-icon {
-      fill: var(--color-play-button);
-      filter: brightness(0%);
     }
     &:active .o-icon {
-      filter: brightness(75%);
+      fill: var(--color-play-button);
+      filter: brightness(95%);
     }
     &.-active .o-icon {
-      filter: none;
+      fill: var(--color-play-button);
+      filter: brightness(110%);
     }
   }
 </style>

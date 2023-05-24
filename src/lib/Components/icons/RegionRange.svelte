@@ -4,7 +4,7 @@
   symbol#o-icon-regionrange(viewBox="0 0 512 512")
     use(xlink:href="#o-icon-region" y="-25%")
     text(x="50%" y="25%") Region
-    use(xlink:href="#o-icon-play" x=px y="25%" width=psize fill="black")/
+    use(xlink:href="#o-icon-play" x=px y="25%" width=psize)/
 </template>
 
 <style lang="postcss">

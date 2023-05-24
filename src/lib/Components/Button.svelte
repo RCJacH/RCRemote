@@ -7,6 +7,7 @@
   export { clazz as class };
   export let active = false;
   export let baseless = false;
+  export let baseclass = "";
 </script>
 
 <template lang="pug">
@@ -23,7 +24,7 @@
   +if('baseless')
     +clickable
     +else
-      .c-button.-base
+      div(class!="{`c-button -base${baseclass ? ' ' + baseclass : ''}`}")
         slot
           +clickable
 </template>
@@ -35,7 +36,7 @@
     flex: 1 1 auto;
     justify-content: center;
     align-items: center;
-    flex-direction: column;
+    flex-direction: row;
     width: 100%;
     height: 100%;
 

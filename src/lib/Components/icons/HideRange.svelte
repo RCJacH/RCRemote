@@ -10,7 +10,6 @@
     polyline(
       points=`${hsw},${(edge-h)} ${hsw},${edge} ${edge},${edge} ${edge},${(edge-h)}`
       fill="none"
-      stroke="black"
       stroke-width=sw
       stroke-dasharray=24
       stroke-dashoffset=12

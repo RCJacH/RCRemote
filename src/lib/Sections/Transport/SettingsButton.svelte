@@ -3,80 +3,84 @@
 </script>
 
 <template lang="pug">
-  .c-button.-base
+  Button(
+    baseclass="-multi"
+  )
     slot
 </template>
 
-<style lang="postcss">
+<style lang="postcss" global>
   $transition-timing: 100ms cubic-bezier(0.3, 1.05, 0.6, 1.15);
+  $radius-end: 6rem;
+  $radius: 0.25em;
 
-  .c-button.-base {
-    display: flex;
+  .c-button.-base.-multi {
     flex: 1 0 auto;
     flex-direction: row;
-    justify-content: center;
-    align-items: center;
-    width: 100%;
+    height: auto;
 
-    & > :global(button) {
-      --button-border-radius: 0%;
-      border: 0;
+    & button {
       width: 100%;
-      height: 100%;
-      cursor: pointer;
+      height: 90%;
+      transition: all 150ms easeOutQuart;
+      border: 0.0625em solid var(--color-button_dark-border);
+      border-radius: $radius;
+      background-color: var(--color-button_dark-bg);
+      filter: brightness(101%);
+      z-index: 100;
 
-      &:first-child {
-        border-radius: var(--button-border-radius) 0 0
-          var(--button-border-radius);
-      }
-      &:last-child {
-        border-radius: 0 var(--button-border-radius) var(--button-border-radius)
-          0;
-      }
-
-      &:before,
-      &:after {
+      &::before {
         content: "";
-        display: block;
-        position: absolute;
+        transition: all 150ms easeOutQuart;
         width: 100%;
-        height: auto;
-        transform: translateZ(-1px);
-        border-radius: inherit;
-        transition: opacity $transition-timing;
-        background-color: var(--color-panel);
+        height: 100%;
+        position: absolute;
+        border-radius: $radius;
+
+        box-shadow: -0.09375em -0.09375em 0.375em rgba(255, 255, 255, 0.83),
+          0 0.25em 0.25em hsla(217, 5%, 81%, 1),
+          0.125em 0.25em 0.375em rgba(0, 0, 0, 0.3),
+          0.46875em 0.625em 1.09375em rgba(0, 0, 0, 0.1),
+          inset -0.0625em -0.0625em 0.0625em rgba(0, 0, 0, 0.1),
+          inset 0.0625em 0.0625em 0.25em rgba(255, 255, 255, 0.2);
+
+        top: 0%;
+        left: 0%;
       }
 
-      &:before {
-        background: linear-gradient(
-          135deg,
-          var(--color-panel),
-          rgba(0, 0, 0, 0.1)
-        );
-        box-shadow: -0.375rem -0.375rem 0.625rem white,
-          0.25rem 0.25rem 0.938rem rgba(0, 0, 0, 0.5);
-        opacity: 0.8;
+      &:active,
+      &.-active {
+        transform: translate(0, 5%);
+        filter: none;
+        z-index: 99;
+        border-color: rgba(0, 0, 0, 0);
+        &::before {
+          box-shadow: none;
+        }
       }
 
-      &:after {
-        background: linear-gradient(
-          135deg,
-          var(--color-panel),
-          rgba(0, 0, 0, 0.05)
-        );
-        box-shadow: inset 0.125rem 0.125rem 0.313rem rgba(0, 0, 0, 0.15),
-          inset -0.125rem -0.125rem 0.313rem rgba(255, 255, 255, 0.2);
-        opacity: 0;
-      }
       &:active {
-        transform: translate(0, 0.15rem);
-        transition: transform $transition-timing;
-        &:before {
-          opacity: 0;
-        }
-        &:after {
-          opacity: 0.3;
-        }
+        box-shadow: inset -0.0625em -0.0625em 0.3125em rgba(255, 255, 255, 0.1),
+          inset 0.0625em 0.0625em 0.125em rgba(0, 0, 0, 0.5);
+      }
+
+      &.-active {
+        box-shadow: inset -0.03125em -0.03125em 0.15625em
+            rgba(255, 255, 255, 0.1),
+          inset 0.0625em 0.0625em 0.125em rgba(0, 0, 0, 0.25);
+      }
+
+      &:first-child,
+      &:first-child::before {
+        border-radius: $radius-end $radius $radius $radius-end;
+      }
+      &:last-child,
+      &:last-child::before {
+        border-radius: $radius $radius-end $radius-end $radius;
+      }
+      & .o-icon {
+        stroke: var(--color-button_dark-icon);
+        fill: var(--color-button_dark-icon);
       }
     }
   }

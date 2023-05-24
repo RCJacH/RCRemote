@@ -81,8 +81,12 @@
   #settings {
     display: flex;
     flex-wrap: wrap;
-    flex-direction: column;
+    flex-direction: row;
     flex: 2;
-    justify-content: space-around;
+    background: linear-gradient(
+      to top,
+      var(--color-button_light-bg) -5%,
+      var(--color-button_dark-bg) 20%
+    );
   }
 </style>

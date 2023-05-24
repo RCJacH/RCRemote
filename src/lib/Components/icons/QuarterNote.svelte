@@ -8,9 +8,3 @@
     use(xlink:href="#o-icon-notehead-filled" transform="scale(-" + scale + ", " + scale +") translate(" + mx + ", " + my + ")")/
     path(d="M336,384 V0" stroke-width="48")/
 </template>
-
-<style lang="postcss">
-  #o-icon-quarternote {
-    stroke: black;
-  }
-</style>

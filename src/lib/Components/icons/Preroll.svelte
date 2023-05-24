@@ -31,7 +31,6 @@
 
 <style lang="postcss">
   #o-icon-preroll {
-    stroke: black;
     & .play {
       stroke: var(--color-play-button);
     }

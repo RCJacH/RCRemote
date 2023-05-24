@@ -74,7 +74,11 @@
     flex: 6;
     justify-content: stretch;
     align-items: stretch;
-
+    background: linear-gradient(
+      to top,
+      var(--color-button_light-bg) 95%,
+      var(--color-button_dark-bg) 120%
+    );
     :global(& .c-button) {
       flex-basis: 50%;
       height: 50%;

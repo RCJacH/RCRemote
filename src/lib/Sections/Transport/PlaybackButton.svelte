@@ -19,9 +19,9 @@
     width: $size;
     height: $size;
     border-radius: 15%;
-    background-color: var(--color-button_bg);
+    background-color: var(--color-button_light-bg);
     filter: brightness(101%);
-    border: 0 solid var(--color-button_border);
+    border: 0 solid var(--color-button_light-border);
     transition: all 150ms cubic-bezier(0.175, 0.885, 0.32, 1.275);
     box-shadow: -0.375em -0.375em 1.625em rgba(255, 255, 255, 0.83),
       0.3125em 0.625em 0.9375em rgba(0, 0, 0, 0.05),
@@ -36,6 +36,10 @@
       border-width: 0.0625rem;
       transform: translate(0, 5%);
       filter: none;
+    }
+    & .o-icon {
+      fill: var(--color-button_light-icon);
+      stroke: var(--color-button_light-icon);
     }
   }
 </style>

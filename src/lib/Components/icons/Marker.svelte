@@ -17,9 +17,3 @@
     //-   d="M208,194 v-112 h36 M256,80 v112 M304,192 v-112 h-36"
     //- )/
 </template>
-
-<style lang="postcss">
-  #o-icon-marker {
-    stroke: black;
-  }
-</style>
