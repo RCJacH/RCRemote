@@ -32,8 +32,8 @@ export default defineConfig(({ mode }) => {
     ],
     resolve: {
       alias: {
-        '@scripts': '/src/scripts',
-        '@components': '/src/lib/components',
+        '~scripts': '/src/scripts',
+        '~components': '/src/lib/components',
       }
     }
   };

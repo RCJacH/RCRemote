@@ -1,7 +1,7 @@
 <script lang="ts">
   import Button from "./ScreenButton.svelte";
-  import { commandID } from "@scripts/constants";
-  import { addCommand } from "@scripts/requests";
+  import { commandID } from "~scripts/constants";
+  import { addCommand } from "~scripts/requests";
 
   export let state: number;
   export let position: string;

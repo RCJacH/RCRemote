@@ -2,8 +2,8 @@
   import Icon from "./lib/Components/Icon.svelte";
   import Recording from "./lib/Recording.svelte";
   import { onMount } from "svelte";
-  import { addRecur, update } from "@scripts/requests";
-  import { commandID } from "@scripts/constants";
+  import { addRecur, update } from "~scripts/requests";
+  import { commandID } from "~scripts/constants";
 
   function getReply() {
     update();

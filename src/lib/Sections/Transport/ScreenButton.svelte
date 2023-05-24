@@ -1,5 +1,5 @@
 <script lang="ts">
-  import Button from "@components/Button.svelte";
+  import Button from "~components/Button.svelte";
   let name;
   export { name as id };
   let clazz = "";

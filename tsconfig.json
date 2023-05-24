@@ -14,10 +14,10 @@
     "allowJs": true,
     "checkJs": true,
     "isolatedModules": true,
-    "baseUrl": "./",
+    "baseUrl": ".",
     "paths": {
-      "@components/*": ["src/components/*"],
-      "@scripts/*": ["src/scripts/*"]
+      "~components/*": ["./src/lib/Components/*"],
+      "~scripts/*": ["./src/scripts/*"],
     }
   },
   "include": ["src/**/*.d.ts", "src/**/*.ts", "src/**/*.js", "src/**/*.svelte"],

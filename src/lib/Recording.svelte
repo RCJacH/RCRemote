@@ -3,8 +3,8 @@
   import Screen from "./Sections/Transport/Screen.svelte";
   import Button from "./Components/Button.svelte";
   import Playback from "./Sections/Transport/Playback.svelte";
-  import { response } from "@scripts/requests";
-  import { commandID } from "@scripts/constants";
+  import { response } from "~scripts/requests";
+  import { commandID } from "~scripts/constants";
 
   export let page: string;
 
