@@ -44,13 +44,13 @@ function wwr_onreply(results: string) {
     if (tok.length == 0) continue;
     switch (tok[0]) {
       case "TRANSPORT":
-        let transport = parse_transport_tokens(tok);
+        let transport = parseTransport(tok);
         if (transport) {
           result["transport"] = transport;
         }
         break;
       case "CMDSTATE":
-        let cmdstate: CommandState = parse_cmdstate(tok);
+        let cmdstate: CommandState = parseCmdState(tok);
         if (cmdstate) {
           if (!("cmdstate" in result)) {
             result["cmdstate"] = [];
@@ -87,7 +87,7 @@ function wwr_onreply(results: string) {
   return result;
 }
 
-function parse_transport_tokens(tok: string[]) {
+function parseTransport(tok: string[]) {
   if (tok.length > 4) {
     let transportState = parseInt(tok[1]);
     let isRepeatOn = parseInt(tok[3]) == 1;
@@ -101,7 +101,7 @@ function parse_transport_tokens(tok: string[]) {
   }
 }
 
-function parse_cmdstate(tok: string[]): CommandState {
+function parseCmdState(tok: string[]): CommandState {
   if (tok.length != 3 || tok[2] == '-1') { return; }
   return {
     id: tok[1],
