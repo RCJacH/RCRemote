@@ -70,7 +70,7 @@
 
     &__info {
       display: flex;
-      flex: 5;
+      flex: 3;
       flex-direction: column;
       align-items: center;
       padding: 5% 0;

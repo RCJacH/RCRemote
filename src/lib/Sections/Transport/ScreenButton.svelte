@@ -8,6 +8,7 @@
   Button.c-button--screen(
     id="{name}",
     on:click
+    baseless
   )
 </template>
 
