@@ -55,7 +55,9 @@
     max-height: 150px;
     font-size: 4vh;
     font-weight: 600;
+    font-family: Inconsolata, monospace;
     text-transform: uppercase;
+    text-shadow: 0 0 0.25em rgba(255, 255, 255, 0.5);
     background: var(--color-screen);
     color: var(--color-screen-text);
     z-index: 100;
