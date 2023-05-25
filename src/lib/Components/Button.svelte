@@ -1,5 +1,5 @@
 <script lang="ts">
-  let name: string;
+  let name: string = "unnamed";
   export { name as id };
   export let content: string = "";
   export let iconname = "";
