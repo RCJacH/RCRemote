@@ -15,7 +15,7 @@
       `GET/${commandID.toggle.preroll};GET/${commandID.toggle.metronome}`,
       10
     );
-    addRecur("MARKER;REGION", 50000);
+    addRecur("MARKER;REGION", 500);
     getReply();
   });
 
