@@ -2,14 +2,11 @@
   import Button from "~components/Button.svelte";
   let name;
   export { name as id };
-  let clazz = "";
-  export { clazz as class };
 </script>
 
 <template lang="pug">
-  Button(
+  Button.c-button--screen(
     id="{name}",
-    class!="{'c-button--screen' + (clazz ? ' ' + clazz : '')}",
     on:click
   )
 </template>
@@ -24,6 +21,7 @@
     flex: 1;
     opacity: 0;
     transition: opacity 50ms ease-out;
+    border: none;
 
     &:hover {
       opacity: 0.4;

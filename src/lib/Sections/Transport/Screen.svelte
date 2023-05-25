@@ -57,14 +57,20 @@
     font-weight: 600;
     font-family: Inconsolata, monospace;
     text-transform: uppercase;
+    position: relative;
     text-shadow: 0 0 0.25em rgba(255, 255, 255, 0.5);
     background: var(--color-screen);
     color: var(--color-screen-text);
+    border: 0.3vw solid var(--color-button_dark-bg);
+    border-bottom: none;
+    border-radius: 0.25em;
+    box-shadow: inset -0.0625em -0.0625em 0.0625em rgba(255, 255, 255, 0.1),
+      inset 0.0625em 0.0625em 0.25em rgba(255, 255, 255, 0.2);
     z-index: 100;
 
     &__info {
       display: flex;
-      flex: 3;
+      flex: 5;
       flex-direction: column;
       align-items: center;
       padding: 5% 0;

@@ -63,5 +63,6 @@
     flex: 1 0 auto;
     flex-direction: column;
     height: 100%;
+    background: var(--color-button_dark-bg);
   }
 </style>
