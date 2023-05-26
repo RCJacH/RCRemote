@@ -19,6 +19,7 @@
     Settings(
       on:posNameChange!="{(e) => posName = e.detail}"
       on:rangeNameChange!="{(e) => rangeName = e.detail}"
+      on:toMenu!="{() => page = 'recording'}"
     )
     Playback
     .open-tracks

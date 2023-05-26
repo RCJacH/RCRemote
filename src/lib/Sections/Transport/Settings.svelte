@@ -23,6 +23,9 @@
     i ||= rangeUnitIndex;
     rangeUnitIndex = (i + 1) % rangeUnits.length;
   }
+
+  $: toMenu = false;
+  $: dispatch("toMenu", toMenu);
   onMount(() => {
     cyclePositionUnit();
     cycleRangeUnit();
@@ -49,7 +52,10 @@
         on:click!="{() => cyclePositionUnit()}"
         baseless
       )
-      Button#menu(baseless)
+      Button#menu(
+        on:click!="{() => {toMenu = true}}"
+        baseless
+      )
       Button#display-range(
         iconname!="{rangeName+'range'}",
         on:click!="{() => cycleRangeUnit()}"
