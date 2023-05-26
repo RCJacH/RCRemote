@@ -109,7 +109,7 @@ const mockPlugin: Plugin = {
                 break;
               case (command.includes('GET/')):
                 let id = command.split('/')[1];
-                result += `CMDSTATE\t${id} \t${mockserver.toggle[id]} \n`
+                result += `CMDSTATE\t${id}\t${mockserver.toggle[id]}\n`
                 break;
               case (!isNaN(command)):
                 mockserver.runCommand(parseInt(command));
