@@ -1,12 +1,12 @@
 <script lang="ts">
   import Button from "./ScreenButton.svelte";
   import { commandID } from "~scripts/constants";
-  import { addCommand } from "~scripts/requests";
+  import { project, addCommand } from "~scripts/requests";
 
-  export let state: number;
-  export let position: string;
-  export let posName: string;
-  export let rangeName: string;
+  $: position = `${$project.transport.measure}.${(
+    Math.round($project.transport.beat * 100) * 0.01 +
+    1
+  ).toFixed(2)}`;
 
   function statusText(index: number): string {
     switch (index) {
@@ -34,14 +34,20 @@
   function triggerFForward() {
     addCommand(commandID.transport.fforward[posName]);
   }
+  export let posName: string;
+  export let rangeName: string;
 </script>
 
 <template lang="pug">
   .c-screen
     Button#rewind(on:click="{triggerRewind}")
     .c-screen__info
-      #status {statusText(state)}
+      #status {statusText($project.transport.state)}
       #position {position}
+      .c-screen__range
+        .last
+        .current
+        .next
     Button#fforward(on:click="{triggerFForward}")
 </template>
 
@@ -72,8 +78,20 @@
       display: flex;
       flex: 3;
       flex-direction: column;
+      justify-content: center;
       align-items: center;
-      padding: 5% 0;
+      position: relative;
+      height: 100%;
+    }
+
+    &__range {
+      position: absolute;
+      width: 100%;
+      height: 40%;
+      display: flex;
+      flex-direction: column;
+      bottom: 5%;
+      left: 0;
     }
   }
 </style>

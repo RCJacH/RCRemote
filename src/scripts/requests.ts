@@ -1,22 +1,36 @@
 import { writable } from 'svelte/store';
 import { wwr_onreply } from './onreply';
+import { Project } from './project';
 
 type XmlHttpRequestOrFalse = XMLHttpRequest | false;
 
 let freq: number = 100;
 let once: string = '';
 let recur: Array<[string, number, number]> = [];
-const response = createResponse();
+const project = createResponse(new Project());
 let req: XmlHttpRequestOrFalse = initxmlhttp();
 let timer: ReturnType<typeof setTimeout> | null = null;
 let timer2: ReturnType<typeof setTimeout> | null = null;
 let errcnt: number = 0;
 
-function createResponse() {
-  const { subscribe, set, update } = writable({});
+function createResponse(project: Project) {
+  const { subscribe, set, update } = writable(project);
+
+  function setNewValue(k: string, v: any) {
+    project[k] = v;
+    update(project => project);
+  }
+
   return {
     subscribe,
-    set,
+    set transport(v) { setNewValue('transport', v); },
+    get transport() { return project.transport; },
+    set cmdstate(v) { setNewValue('cmdstate', v); },
+    get cmdstate() { return project.cmdstate; },
+    set marker(v) { setNewValue('marker', v); },
+    get marker() { return project.marker; },
+    set region(v) { setNewValue('region', v); },
+    get region() { return project.region; },
   }
 }
 
@@ -80,7 +94,7 @@ function onreadystatechange(): void {
     }
     if (req.responseText !== "") {
       errcnt = 0;
-      response.set(wwr_onreply(req.responseText));
+      wwr_onreply(project, req.responseText);
     } else if (req.getResponseHeader("Server") === null) {
       if (errcnt < 8) errcnt++;
 
@@ -125,4 +139,4 @@ function update(): void {
   req.send();
 }
 
-export { addCommand, addRecur, removeRecur, update, response };
+export { addCommand, addRecur, removeRecur, update, project };

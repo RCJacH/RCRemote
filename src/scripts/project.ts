@@ -1,22 +1,26 @@
-interface CommandState {
-  id: string;
+export interface CommandState {
+  id: string | number;
   state: boolean;
 }
 
-interface RGB {
+export interface CommandStates {
+  [id: string]: boolean;
+}
+
+export interface RGB {
   r: number;
   g: number;
   b: number;
 }
 
-interface Marker {
+export interface Marker {
   id: number;
   name: string;
   position: number;
   color: RGB;
 }
 
-interface Region {
+export interface Region {
   id: number;
   name: string;
   start: number;
@@ -24,12 +28,8 @@ interface Region {
   color: RGB;
 }
 
-interface Transport {
+export interface Transport {
   state: number;
-  position?: Position;
-}
-
-interface Position {
   seconds: number;
   fullBeat: number;
   measure: number;
@@ -38,17 +38,22 @@ interface Position {
   ts_denom: number;
 }
 
-class Project {
+export class Project {
   transport: Transport;
-  cmdstate: CommandState[];
+  cmdstate: CommandStates;
   marker?: Marker[];
   region?: Region[];
 
   constructor() {
-    this.transport = { state: -1 };
-    this.cmdstate = [];
+    this.transport = {
+      state: -1,
+      seconds: 0.0,
+      fullBeat: 0.0,
+      measure: 0,
+      beat: 0.0,
+      ts_num: 4,
+      ts_denom: 4,
+    };
+    this.cmdstate = {};
   }
 }
-
-export { Project }
-export type { Transport, Position, Region, Marker, RGB, CommandState }

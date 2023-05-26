@@ -1,61 +1,30 @@
-interface CommandState {
-  id: string;
-  state: boolean;
-}
+import { Project } from './project';
+import type { Transport, Region, Marker, RGB, CommandState } from './project';
 
-interface RGB {
-  r: number;
-  g: number;
-  b: number;
-}
-
-interface Marker {
-  id: number;
-  name: string;
-  position: number;
-  color: RGB;
-}
-
-interface Region {
-  id: number;
-  name: string;
-  start: number;
-  end: number;
-  color: RGB;
-}
-
-interface Response {
-  transport?: {
-    position: string;
-    isRepeatOn: boolean;
-    state: number;
-  };
-  cmdstate?: CommandState[];
-  marker?: Marker[];
-}
-
-function wwr_onreply(results: string) {
+function wwr_onreply(project: Project, results: string) {
   let ar = results.split("\n");
-  let result: Response = {};
   let markers: Marker[];
   let regions: Region[];
   for (var x = 0; x < ar.length; x++) {
     let tok = ar[x].split("\t");
     if (tok.length == 0) continue;
     switch (tok[0]) {
-      case "TRANSPORT":
-        let transport = parseTransport(tok);
+      // case "TRANSPORT":
+      //   let transport = parseTransport(tok);
+      //   if (transport) {
+      //     result["transport"] = transport;
+      //   }
+      //   break;
+      case "BEATPOS":
+        let transport = parseBeatpos(tok);
         if (transport) {
-          result["transport"] = transport;
+          project.transport = transport
         }
         break;
       case "CMDSTATE":
-        let cmdstate: CommandState = parseCmdState(tok);
+        let cmdstate = parseCmdState(tok);
         if (cmdstate) {
-          if (!("cmdstate" in result)) {
-            result["cmdstate"] = [];
-          }
-          result["cmdstate"].push(cmdstate);
+          project.cmdstate[cmdstate.id] = cmdstate.state;
         }
         break;
       case "SEND":
@@ -71,7 +40,7 @@ function wwr_onreply(results: string) {
         markers.push(parseMarker(tok));
         break;
       case "MARKER_LIST_END":
-        result["marker"] = markers;
+        project.marker = markers;
         break;
       case "REGION_LIST":
         regions = [];
@@ -80,11 +49,10 @@ function wwr_onreply(results: string) {
         regions.push(parseRegion(tok));
         break;
       case "REGION_LIST_END":
-        result["region"] = regions;
+        project.region = regions;
         break;
     }
   }
-  return result;
 }
 
 function parseTransport(tok: string[]) {
@@ -98,6 +66,19 @@ function parseTransport(tok: string[]) {
         isRepeatOn: isRepeatOn,
         position: position,
       }
+  }
+}
+
+function parseBeatpos(tok: string[]): Transport {
+  if (tok.length != 8) { return; }
+  return {
+    state: parseInt(tok[1]),
+    seconds: parseFloat(tok[2]),
+    fullBeat: parseFloat(tok[3]),
+    measure: parseInt(tok[4]),
+    beat: parseFloat(tok[5]),
+    ts_num: parseInt(tok[6]),
+    ts_denom: parseInt(tok[7]),
   }
 }
 

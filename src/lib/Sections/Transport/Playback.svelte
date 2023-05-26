@@ -1,12 +1,11 @@
 <script lang="ts">
   import Button from "./PlaybackButton.svelte";
   import { commandID } from "~scripts/constants";
-  import { response, addCommand } from "~scripts/requests";
-
-  export let state = -1;
+  import { project, addCommand } from "~scripts/requests";
 
   let allowPause = false;
   let undostate = 0;
+  $: state = $project.transport.state;
   $: activatePlay = state >= 0 && state&1;
   $: activatePause = state >= 0 && state&2;
   $: activateRecord = state >= 0 && state&4;
@@ -43,16 +42,16 @@
   #playback
     +if('state <= 0 || !allowPause')
       Button#play(
-        active="{activatePlay}"
+        active!="{activatePlay}"
         on:click!="{triggerPlay}"
       )
       +elseif('state > 0 && allowPause')
         Button#pause(
-          active="{activatePause}"
+          active!="{activatePause}"
           on:click!="{triggerPause}"
         )
     Button#record(
-      active="{activateRecord}"
+      active!="{activateRecord}"
       on:click!="{triggerRecord}"
     )
     +if('state > 0')

@@ -1,7 +1,7 @@
 <script lang="ts">
   import ButtonBase from "./SettingsButton.svelte";
   import Button from "~components/Button.svelte";
-  import { response, addCommand } from "~scripts/requests";
+  import { project, addCommand } from "~scripts/requests";
   import { commandID } from "~scripts/constants";
   import { createEventDispatcher, onMount } from "svelte";
   const dispatch = createEventDispatcher();
@@ -39,10 +39,6 @@
   function triggerLoop() {
     addCommand(commandID.toggle.loop);
   }
-
-  export let isPrerollOn;
-  export let isMetronomeOn;
-  export let isRepeatOn;
 </script>
 
 <template lang="pug">
@@ -61,17 +57,17 @@
       )
     ButtonBase
       Button#preroll(
-        active!="{isPrerollOn}"
+        active!="{$project.cmdstate[commandID.toggle.preroll]}"
         on:click!="{triggerPreroll}"
         baseless
       )
       Button#metronome(
-        active!="{isMetronomeOn}"
+        active!="{$project.cmdstate[commandID.toggle.metronome]}"
         on:click!="{triggerMetronome}"
         baseless
       )
       Button#loop(
-        active!="{isRepeatOn}"
+        active!="{$project.cmdstate[commandID.toggle.loop]}"
         on:click!="{triggerLoop}"
         baseless
       )
