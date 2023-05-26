@@ -24,6 +24,9 @@ class MockServer {
   getCurTime() {
     return (this.measure * 4 + this.beat) / 2;
   }
+  getTotalBeat() {
+    return this.measure * 4 + this.beat;
+  }
   getMarkers() {
     let result = ""
     this.markers.map((x) => { result += `MARKER\t${x.join('\t')}\n` })
@@ -35,7 +38,7 @@ class MockServer {
     return `REGION_LIST\n${result}REGION_LIST_END\n`
   }
   setPositionByBeat(x: number) {
-    let total = this.measure * 4 + this.beat;
+    let total = this.getTotalBeat();
     total += x;
     this.measure = Math.floor(total / 4);
     this.beat = total - this.measure * 4;
@@ -101,9 +104,12 @@ const mockPlugin: Plugin = {
               case (command === 'TRANSPORT'):
                 result += `TRANSPORT\t${mockserver.playstate}\t${mockserver.getCurTime()}\t${mockserver.toggle[commandID.toggle.loop]}\t${mockserver.getBeatStr()}\t${mockserver.getBeatStr()}\n`;
                 break;
+              case (command === 'BEATPOS'):
+                result += `BEATPOS\t${mockserver.playstate}\t${mockserver.getCurTime()}\t${mockserver.getTotalBeat()}\t${mockserver.measure}\t${mockserver.beat}\t4\t4\n`;
+                break;
               case (command.includes('GET/')):
                 let id = command.split('/')[1];
-                result += `CMDSTATE\t${id}\t${mockserver.toggle[id]}\n`
+                result += `CMDSTATE\t${id} \t${mockserver.toggle[id]} \n`
                 break;
               case (!isNaN(command)):
                 mockserver.runCommand(parseInt(command));
