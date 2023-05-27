@@ -78,13 +78,15 @@
       var(--color-button_light-bg) 95%,
       var(--color-button_dark-bg) 120%
     );
-    :global(& .c-button) {
+    & :global(.c-button) {
       flex-basis: 50%;
       height: 50%;
-
-      @media screen and (orientation: landscape) {
+    }
+    @media screen and (orientation: landscape) {
+      & :global(.c-button) {
         flex-basis: 25%;
       }
+      flex: 5;
     }
   }
 </style>

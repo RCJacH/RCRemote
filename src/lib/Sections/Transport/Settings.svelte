@@ -90,5 +90,9 @@
       var(--color-button_light-bg) -5%,
       var(--color-button_dark-bg) 20%
     );
+    @media screen and (orientation: landscape) {
+      flex: 1.2;
+      flex-wrap: unset;
+    }
   }
 </style>

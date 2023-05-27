@@ -15,7 +15,7 @@
   $radius: 0.25em;
 
   .c-button.-base.-multi {
-    flex: 1 0 auto;
+    flex: 1 1 auto;
     flex-direction: row;
     height: auto;
 
