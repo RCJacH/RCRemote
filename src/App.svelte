@@ -12,7 +12,7 @@
   onMount(() => {
     addRecur("TRANSPORT;BEATPOS", 10);
     addRecur(
-      `GET/${commandID.toggle.preroll};GET/${commandID.toggle.metronome}`,
+      `GET/${commandID.toggle.preroll};GET/${commandID.toggle.metronome};GET/${commandID.toggle.loop}`,
       10
     );
     addRecur("MARKER;REGION", 500);
