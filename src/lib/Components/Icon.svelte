@@ -6,6 +6,7 @@
   import Frame from "./icons/Frame.svelte";
   import Grid from "./icons/Grid.svelte";
   import HideRange from "./icons/HideRange.svelte";
+  import Location from "./icons/Location.svelte";
   import Loop from "./icons/Loop.svelte";
   import Marker from "./icons/Marker.svelte";
   import MarkerUnit from "./icons/MarkerUnit.svelte";
@@ -40,6 +41,7 @@
       Frame
       Grid
       HideRange
+      Location
       Loop
       Marker
       MarkerUnit

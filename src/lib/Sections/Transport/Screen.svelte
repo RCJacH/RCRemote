@@ -1,5 +1,6 @@
 <script lang="ts">
   import Button from "./ScreenButton.svelte";
+  import Range from "./Screen.Range.svelte";
   import { commandID } from "~scripts/constants";
   import { project, addCommand } from "~scripts/requests";
 
@@ -34,6 +35,7 @@
   function triggerFForward() {
     addCommand(commandID.transport.fforward[posName]);
   }
+
   export let posName: string;
   export let rangeName: string;
 </script>
@@ -44,10 +46,7 @@
     .c-screen__info
       #status {statusText($project.transport.state)}
       #position {position}
-      .c-screen__range
-        .last
-        .current
-        .next
+      Range({rangeName})
     Button#fforward(on:click="{triggerFForward}")
 </template>
 
@@ -82,16 +81,6 @@
       align-items: center;
       position: relative;
       height: 100%;
-    }
-
-    &__range {
-      position: absolute;
-      width: 100%;
-      height: 40%;
-      display: flex;
-      flex-direction: column;
-      bottom: 5%;
-      left: 0;
     }
   }
 </style>
