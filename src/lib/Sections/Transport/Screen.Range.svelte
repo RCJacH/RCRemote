@@ -1,17 +1,18 @@
 <script lang="ts">
   import { commandID } from "~scripts/constants";
   import { project, addCommand } from "~scripts/requests";
+  import type { Project, Marker, Region } from "~scripts/project";
 
-  let prev;
-  let curr;
-  let next;
+  let prev: Marker | Region | undefined;
+  let curr: Marker | Region | undefined;
+  let next: Marker | Region | undefined;
+  let curSecond: number;
   let curPct = 0.5;
   let prevColor = "";
   let currColor = "";
   let nextColor = "";
-  $: curSecond = $project.transport.seconds;
 
-  function calcRangeMarker(range) {
+  function calcRangeMarker(range: Marker[]): void {
     prev = range.findLast((x) => x.position < curSecond);
     curr = range.find((x) => x.position == curSecond);
     next = range.find((x) => x.position > curSecond);
@@ -30,19 +31,41 @@
         : (curSecond - prev.position) / (next.position - prev.position);
   }
 
-  function calcRangeRegion(range) {}
+  function calcRangeRegion(range: Region[]): void {
+    let region = range.findLast(
+      (x) => x.start < curSecond && x.end > curSecond
+    );
+    if (region) {
+      prev = curr = next = region;
+      curPct = (curSecond - curr.start) / (curr.end - curr.start);
+    } else {
+      prev = range.findLast((x) => x.end <= curSecond);
+      next = range.find((x) => x.start >= curSecond);
+      if (!next) {
+        curPct = 0.5;
+        return;
+      }
+      if (!prev) {
+        curPct = curSecond / next.start;
+        return;
+      }
+      curPct = (curSecond - prev.end) / (next.start - prev.end);
+    }
+  }
 
-  function updateRange(proj) {
+  function updateRange(proj: Project): void {
     if (rangeName === "hide") return;
+    curSecond = proj.transport.seconds;
     let range = proj[rangeName];
     if (!range) {
       return;
     } else if (rangeName === "marker") {
       calcRangeMarker(range);
-    } else if (rangeName === "range") {
+    } else if (rangeName === "region") {
       calcRangeRegion(range);
     }
   }
+
   $: {
     updateRange($project);
     prevColor = prev
@@ -88,10 +111,28 @@
           use(xlink:href!="{`#o-icon-${rangeName}`}")
     +cursor()
 
+  mixin regions
+    +if('prev == next')
+      .current(
+        style!="{currColor}"
+      ) {curr.name}
+      +else
+        +if('prev')
+          .prev(
+            style!="{prevColor}"
+          )
+        .placeholder
+        +if('next')
+          .next(
+            style!="{nextColor}"
+          )
+    +cursor()
 
-  .c-screen__range
+  .c-screen__range(class!="{rangeName ? `-${rangeName}` : ''}")
     +if("rangeName === 'marker'")
       +markers()
+    +if("rangeName === 'region'")
+      +regions()
 </template>
 
 <style lang="postcss">
@@ -115,24 +156,61 @@
       display: flex;
       align-items: flex-end;
     }
+
     & .next {
       justify-content: flex-end;
     }
+
     & .current {
       justify-content: center;
     }
+
     & .cursor {
       position: absolute;
-      left: var(--position);
     }
+
     .o-icon {
       position: absolute;
       stroke: var(--color);
       margin: 0;
+    }
+
+    &.-marker .o-icon {
       width: 6%;
       height: 60%;
     }
+
+    &.-region {
+      font-size: 0.4em;
+      & .current {
+        width: 100%;
+        height: 36%;
+        border: 0.1em solid var(--color-screen-text);
+        border-radius: 2em;
+        background-color: var(--color);
+        color: var(--color-screen-text);
+      }
+      & .prev {
+        width: 4%;
+        height: 36%;
+        border: 0.1em solid var(--color-screen-text);
+        border-radius: 0 2em 2em 0;
+        border-left: transparent;
+        background-color: var(--color);
+        color: var(--color-screen-text);
+      }
+      & .next {
+        width: 4%;
+        height: 36%;
+        border: 0.1em solid var(--color-screen-text);
+        border-radius: 2em 0 0 2em;
+        border-right: transparent;
+        background-color: var(--color);
+        color: var(--color-screen-text);
+      }
+    }
     .cursor .o-icon {
+      left: var(--position);
       width: 4%;
       margin: 0 1%;
       height: 40%;
