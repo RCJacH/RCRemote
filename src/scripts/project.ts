@@ -55,5 +55,7 @@ export class Project {
       ts_denom: 4,
     };
     this.cmdstate = {};
+    this.marker = [];
+    this.region = [];
   }
 }
