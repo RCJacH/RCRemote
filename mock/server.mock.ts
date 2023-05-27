@@ -3,7 +3,7 @@ import { commandID } from '../src/scripts/constants'
 
 class MockServer {
   playstate: number = 0;
-  measure: number = 18;
+  measure: number = 8;
   beat: number = 2.5;
   toggle: { [k: string | number]: number } = {
     [commandID.toggle.loop]: 0,
@@ -43,7 +43,14 @@ class MockServer {
     this.measure = Math.floor(total / 4);
     this.beat = total - this.measure * 4;
   }
+  setPositionByTime(x: number) {
+    let total = x * 2;
+    this.measure = Math.floor(total / 4);
+    this.beat = total - this.measure * 4;
+  }
+
   runCommand(command) {
+    let result;
     switch (command) {
       case commandID.transport.play:
         this.playstate = 1;
@@ -61,11 +68,19 @@ class MockServer {
       case commandID.transport.rewind.measure:
         this.setPositionByBeat(-4);
         break;
+      case commandID.transport.rewind.marker:
+        result = this.markers.findLast((x) => (x[2] < this.getCurTime()));
+        this.setPositionByTime(result ? result[2] : 0);
+        break;
       case commandID.transport.fforward.beat:
         this.setPositionByBeat(1);
         break;
       case commandID.transport.fforward.measure:
         this.setPositionByBeat(4);
+        break;
+      case commandID.transport.fforward.marker:
+        result = this.markers.find((x) => (x[2] > this.getCurTime()));
+        if (result) this.setPositionByTime(result[2]);
         break;
       case commandID.project.save:
       case commandID.project.undo:
