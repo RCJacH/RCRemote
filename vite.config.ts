@@ -1,3 +1,4 @@
+/// <reference types="vitest" />
 import { defineConfig } from "vite"
 import pugPlugin from "vite-plugin-pug"
 // import { viteSingleFile } from "vite-plugin-singlefile"
@@ -36,5 +37,7 @@ export default defineConfig(({ mode }) => {
     //     "~components": "/src/lib/components",
     //   }
     // }
+    test: {
+    }
   };
 });

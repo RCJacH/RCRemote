@@ -7,9 +7,12 @@
     "dev": "vite",
     "host": "vite --host",
     "build": "tsc && vite build",
-    "preview": "vite preview"
+    "preview": "vite preview",
+    "test": "vitest",
+    "coverage": "vitest run --coverage"
   },
   "devDependencies": {
+    "@playwright/test": "^1.34.3",
     "autoprefixer": "^10.4.14",
     "postcss": "^8.4.23",
     "postcss-import": "^15.1.0",
@@ -21,6 +24,7 @@
     "typescript": "^5.0.2",
     "vite": "^4.3.2",
     "vite-plugin-pug": "^0.3.2",
-    "vite-plugin-singlefile": "^0.13.5"
+    "vite-plugin-singlefile": "^0.13.5",
+    "vitest": "^0.31.1"
   }
 }
