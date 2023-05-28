@@ -2,7 +2,7 @@
 import { defineConfig } from "vite"
 import pugPlugin from "vite-plugin-pug"
 // import { viteSingleFile } from "vite-plugin-singlefile"
-// import mockServer from "./mock/server.mock"
+import mockServer from "./mock/server.mock"
 
 /**
  * @param newFilename {string}
@@ -26,8 +26,8 @@ export default defineConfig(({ mode }) => {
 
   return {
     plugins: [
-      pugPlugin({})
-      // isDev ? mockServer : [],
+      pugPlugin({}),
+      isDev ? mockServer : [],
       // viteSingleFile(),
       // renameIndexPlugin("rcremote.html")
     ],
