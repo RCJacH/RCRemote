@@ -10,7 +10,17 @@
     "preview": "vite preview"
   },
   "devDependencies": {
+    "autoprefixer": "^10.4.14",
+    "postcss": "^8.4.23",
+    "postcss-import": "^15.1.0",
+    "postcss-initial": "^3.0.4",
+    "postcss-load-config": "^4.0.1",
+    "postcss-nested": "^6.0.1",
+    "postcss-preset-env": "^8.4.1",
+    "postcss-simple-vars": "^7.0.1",
     "typescript": "^5.0.2",
-    "vite": "^4.3.2"
+    "vite": "^4.3.2",
+    "vite-plugin-pug": "^0.3.2",
+    "vite-plugin-singlefile": "^0.13.5"
   }
 }
