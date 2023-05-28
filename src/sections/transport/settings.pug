@@ -2,24 +2,10 @@
   include ../../components/button.pug
 
   +ButtonBase.-multi
-    +Button#position-unit(
-      iconname=`unit`,
-      baseless
-    )
-    +Button#menu(
-      baseless
-    )
-    +Button#display-range(
-      iconname=`range`,
-      baseless
-    )
+    +Button#position-unit(isBaseless=true)
+    +Button#menu(isBaseless=true)
+    +Button#display-range(isBaseless=true)
   +ButtonBase.-multi
-    +Button#preroll(
-      baseless
-    )
-    +Button#metronome(
-      baseless
-    )
-    +Button#loop(
-      baseless
-    )
+    +Button#preroll(isBaseless=true)
+    +Button#metronome(isBaseless=true)
+    +Button#loop(isBaseless=true)

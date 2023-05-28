@@ -1,12 +1,10 @@
 mixin clickable(iconname, isActive)
   - var id = attributes.id || 'untitled';
   -
-    var idWords = id.split('-');
     var title = '';
-    for (var v of idWords) {
+    for (var v of id.split('-')) {
       title += v[0].toUpperCase() + v.slice(1);
     }
-
   - var iconname = iconname === undefined ? id : iconname;
   button(
     class!=attributes.class,
@@ -25,14 +23,14 @@ mixin ButtonBase()
     if block
       block
 
-mixin Button(iconname, isActive, baseclass)
-  - var isBaseless = baseclass === null;
+mixin Button(iconname='', baseclass='', isActive=false, isBaseless=false)
+  - var isBaseless = isBaseless || baseclass === null;
   if isBaseless
-    +clickable&attributes(attributes)
+    +clickable(iconname=iconname, isActive=isActive)&attributes(attributes)
       if block
         block
   else
     +ButtonBase(class=baseclass)
-      +clickable&attributes(attributes)
+      +clickable(iconname=iconname, isActive=isActive)&attributes(attributes)
         if block
           block
