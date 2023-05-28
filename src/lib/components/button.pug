@@ -23,14 +23,7 @@ mixin ButtonBase()
     if block
       block
 
-mixin Button(iconname='', baseclass='', isActive=false, isBaseless=false)
-  - var isBaseless = isBaseless || baseclass === null;
-  if isBaseless
-    +clickable(iconname=iconname, isActive=isActive)&attributes(attributes)
-      if block
-        block
-  else
-    +ButtonBase(class=baseclass)
-      +clickable(iconname=iconname, isActive=isActive)&attributes(attributes)
-        if block
-          block
+mixin Button(iconname='')
+  +clickable(iconname=iconname)&attributes(attributes)
+    if block
+      block

@@ -1,4 +1,5 @@
 include ../../components/button.pug
 
 mixin ButtonPlayback()
-  +Button.c-button--playback()&attributes(attributes)
+  +ButtonBase()
+    +Button.c-button--playback()&attributes(attributes)
