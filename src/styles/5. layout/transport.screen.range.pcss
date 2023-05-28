@@ -1,0 +1,48 @@
+.c-screen__range {
+  position: absolute;
+  width: 100%;
+  height: 40%;
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: flex-end;
+  bottom: 5%;
+  left: 0;
+  overflow: hidden;
+
+  & div {
+    width: 100%;
+    height: 100%;
+    display: flex;
+    align-items: flex-end;
+  }
+
+  & .next {
+    justify-content: flex-end;
+  }
+
+  & .current {
+    justify-content: center;
+  }
+
+  & .cursor {
+    position: absolute;
+  }
+
+  & .marker .o-icon {
+    width: 6%;
+    height: 60%;
+  }
+
+  & .region {
+    & .current {
+      width: 100%;
+      height: 36%;
+    }
+    & .prev,
+    & .next {
+      width: 4%;
+      height: 36%;
+    }
+  }
+}

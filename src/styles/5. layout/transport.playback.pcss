@@ -1,0 +1,25 @@
+#playback {
+  display: flex;
+  flex-wrap: wrap;
+  flex: 6;
+  justify-content: stretch;
+  align-items: stretch;
+
+  & .c-button {
+    flex-basis: 50%;
+    height: 50%;
+    & button {
+      $size: 80%;
+
+      width: $size;
+      height: $size;
+    }
+  }
+
+  @media screen and (orientation: landscape) {
+    & .c-button {
+      flex-basis: 25%;
+    }
+    flex: 5;
+  }
+}
