@@ -2,6 +2,7 @@ import { defineConfig } from 'vite'
 import { svelte } from '@sveltejs/vite-plugin-svelte'
 import { viteSingleFile } from 'vite-plugin-singlefile'
 import mockServer from './mock/server.mock'
+import legacy from '@vitejs/plugin-legacy'
 
 /**
  * @param newFilename {string}
@@ -27,8 +28,11 @@ export default defineConfig(({ mode }) => {
     plugins: [
       svelte(),
       isDev ? mockServer : [],
-      viteSingleFile(),
-      renameIndexPlugin('rcremote.html')
+      legacy({
+        targets: '>0.3%, iOS >= 12.2, last 2 versions, not dead'
+      }),
+      // viteSingleFile(),
+      // renameIndexPlugin('rcremote.html')
     ],
     resolve: {
       alias: {
