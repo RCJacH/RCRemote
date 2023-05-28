@@ -1,0 +1,25 @@
+#settings
+  include ../../components/button.pug
+
+  +ButtonBase.-multi
+    +Button#position-unit(
+      iconname=`unit`,
+      baseless
+    )
+    +Button#menu(
+      baseless
+    )
+    +Button#display-range(
+      iconname=`range`,
+      baseless
+    )
+  +ButtonBase.-multi
+    +Button#preroll(
+      baseless
+    )
+    +Button#metronome(
+      baseless
+    )
+    +Button#loop(
+      baseless
+    )

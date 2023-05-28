@@ -1,0 +1,9 @@
+include ./screen.button.pug
+
+#screen.c-screen
+  +ButtonScreen#rewind
+  .c-screen__info
+    #screen-status
+    #screen-position
+    include ./screen.range.pug
+  +ButtonScreen#fforward

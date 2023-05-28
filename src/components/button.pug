@@ -1,0 +1,38 @@
+mixin clickable(iconname, isActive)
+  - var id = attributes.id || 'untitled';
+  -
+    var idWords = id.split('-');
+    var title = '';
+    for (var v of idWords) {
+      title += v[0].toUpperCase() + v.slice(1);
+    }
+
+  - var iconname = iconname === undefined ? id : iconname;
+  button(
+    class!=attributes.class,
+    class={ '-active' : isActive },
+    id!=`${id}-button`,
+    on:click=`triggered${title}Button(e)`
+  )
+    if iconname !== null
+      svg.o-icon(viewBox="0 0 100 100")
+        use(xlink:href!=`#o-icon-${iconname}`)
+    if block
+      block
+
+mixin ButtonBase()
+  .c-button.-base(class!=attributes.class)
+    if block
+      block
+
+mixin Button(iconname, isActive, baseclass)
+  - var isBaseless = baseclass === null;
+  if isBaseless
+    +clickable&attributes(attributes)
+      if block
+        block
+  else
+    +ButtonBase(class=baseclass)
+      +clickable&attributes(attributes)
+        if block
+          block

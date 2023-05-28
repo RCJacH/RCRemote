@@ -1,0 +1,28 @@
+mixin cursor
+  .cursor
+    svg.o-icon(viewBox="0 0 100 100")
+      use(xlink:href="#o-icon-location")
+
+mixin markers
+  .prev
+    svg.o-icon(viewBox="0 0 100 100")
+      use
+  .current
+    svg.o-icon(viewBox="0 0 100 100")
+      use
+  .next
+    svg.o-icon(viewBox="0 0 100 100")
+      use
+
+mixin regions
+  .prev
+  .current
+  .placeholder
+  .next
+
+.c-screen__range
+  .marker
+    +markers()
+  .region
+    +regions()
+  +cursor()
