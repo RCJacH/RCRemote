@@ -1,4 +1,0 @@
-<template lang="pug">
-  symbol#o-icon-stop(viewBox="0 0 448 512")
-    rect(x="0" y="32" width="448" height="448" rx="48")/
-</template>
