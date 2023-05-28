@@ -1,5 +1,5 @@
 $transition-timing: 100ms cubic-bezier(0.3, 1.05, 0.6, 1.15);
-$radius-end: 6rem;
+$radius-end: 6em;
 $radius: 0.25em;
 
 #transport-settings {
@@ -22,14 +22,14 @@ $radius: 0.25em;
       border-radius: $radius;
 
       box-shadow: -0.09375em -0.09375em 0.375em rgba(255, 255, 255, 0.83),
-        0 0.25em 0.25em hsla(217, 5%, 81%, 1),
+        0 0.25em 0.5em hsla(217, 5%, 81%, 1),
         0.125em 0.25em 0.375em rgba(0, 0, 0, 0.3),
         0.46875em 0.625em 1.09375em rgba(0, 0, 0, 0.1),
         inset -0.0625em -0.0625em 0.0625em rgba(0, 0, 0, 0.1),
         inset 0.0625em 0.0625em 0.25em rgba(255, 255, 255, 0.2);
 
-      top: 0%;
-      left: 0%;
+      top: 0;
+      left: 0;
     }
 
     &:active,
@@ -54,17 +54,17 @@ $radius: 0.25em;
         inset 0.0625em 0.0625em 0.125em rgba(0, 0, 0, 0.25);
     }
 
-    &:first-child,
-    &:first-child::before {
-      border-radius: $radius-end $radius $radius $radius-end;
-    }
-    &:last-child,
-    &:last-child::before {
-      border-radius: $radius $radius-end $radius-end $radius;
-    }
     & .o-icon {
       stroke: var(--color-button_dark-icon);
       fill: var(--color-button_dark-icon);
     }
+  }
+  &:first-child button,
+  &:first-child button::before {
+    border-radius: $radius-end $radius $radius $radius-end;
+  }
+  &:last-child button,
+  &:last-child button::before {
+    border-radius: $radius $radius-end $radius-end $radius;
   }
 }
