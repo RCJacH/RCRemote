@@ -1,4 +1,5 @@
 include ../../components/button.pug
 
 mixin ButtonScreen()
-  +Button.c-button--screen()&attributes(attributes)
+  +ButtonBase
+    +Button.c-button--screen()&attributes(attributes)
