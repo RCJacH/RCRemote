@@ -1,4 +1,8 @@
-export const commandID = {
+interface CommandIDs {
+  [key: string]: any;
+}
+
+export const commandID: CommandIDs = {
   toggle: {
     loop: 1068,
     preroll: 41819,

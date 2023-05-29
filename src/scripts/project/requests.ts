@@ -18,6 +18,14 @@ function initxmlhttp(): XMLHttpRequest | null {
 
   return xmlhttp;
 }
+
+export interface Request {
+  addCommand: Function;
+  addRecur: Function;
+  removeRecur: Function;
+  update: Function;
+}
+
 const createRequest = (callback: Function) => {
   let req = initxmlhttp();
   let freq = 100;
@@ -113,12 +121,14 @@ const createRequest = (callback: Function) => {
     req.send();
   };
 
-  return {
-    addCommand,
-    addRecur,
-    removeRecur,
-    update
+  let request: Request = {
+    addCommand: addCommand,
+    addRecur: addRecur,
+    removeRecur: removeRecur,
+    update: update
   };
+
+  return request;
 };
 
 export default createRequest;
