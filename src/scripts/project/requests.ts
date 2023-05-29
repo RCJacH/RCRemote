@@ -18,106 +18,107 @@ function initxmlhttp(): XMLHttpRequest | null {
 
   return xmlhttp;
 }
+const createRequest = (callback: Function) => {
+  let req = initxmlhttp();
+  let freq = 100;
+  let command = '';
+  let recurring: [string, number, number][] = [];
+  let timer: ReturnType<typeof setTimeout> | null = null;
+  let timer2: ReturnType<typeof setTimeout> | null = null;
+  let errcnt = 0;
 
-export default class Request {
-  freq: number = 100;
-  command: string = '';
-  recurring: [string, number, number][];
-  req: XMLHttpRequest | null;
-  timer: ReturnType<typeof setTimeout> | null = null;
-  timer2: ReturnType<typeof setTimeout> | null = null;
-  errcnt: number = 0;
-  callback: Function;
+  const addCommand = (name: string | number) => {
+    command += `${name};`;
+  };
 
-  constructor(callback: Function) {
-    this.recurring = [];
-    this.req = initxmlhttp();
-    this.callback = callback;
-  }
+  const addRecur = (name: string, interval: number) => {
+    recurring.push([name, interval, 0]);
+  };
 
-  addCommand(name: string | number): void {
-    this.command += `${name};`;
-  }
-
-  addRecur(name: string, interval: number): void {
-    this.recurring.push([name, interval, 0]);
-  }
-
-  removeRecur(name: string): void {
-    this.recurring = this.recurring.filter(
+  const removeRecur = (name: string) => {
+    recurring = recurring.filter(
       (item) => { item[0] !== name }
-    )
-  }
+    );
+  };
 
-  getRequestString(): string {
+  const getRequestString = () => {
     const now = Date.now();
-    return this.command + this.recurring.reduce((acc, item, _) => {
+    return command + recurring.reduce((acc, item) => {
       if (item[2] < now) {
         item[2] = now + item[1];
         return acc + `${item[0]};`;
       }
       return acc;
     }, "");
-  }
+  };
 
-  pendingUpdate(): void {
-    if (this.errcnt > 2) {
-      this.timer = setTimeout(update, 100 << (this.errcnt - 3));
+  const pendingUpdate = () => {
+    if (errcnt > 2) {
+      timer = setTimeout(update, 100 << (errcnt - 3));
     } else {
-      this.update();
-    }
-  }
-
-  onreadystatechange(): void {
-    if (this.req && this.req.readyState === 4) {
-      if (this.timer2) {
-        clearTimeout(this.timer2);
-        this.timer2 = null;
-      }
-      if (this.req.responseText !== "") {
-        this.errcnt = 0;
-        this.callback(this.req.responseText);
-      } else if (this.req.getResponseHeader("Server") === null) {
-        if (this.errcnt < 8) this.errcnt++;
-
-        this.req = initxmlhttp();
-      }
-      this.pendingUpdate();
+      update();
     }
   };
 
-  onTimeout(): void {
-    this.timer2 = null;
-    if (this.req && this.req.readyState != 0 && this.req.readyState != 4) {
-      if (this.timer) {
-        clearTimeout(this.timer);
-        this.timer = null;
+  const onreadystatechange = () => {
+    if (req && req.readyState === 4) {
+      if (timer2) {
+        clearTimeout(timer2);
+        timer2 = null;
       }
-      this.req.abort();
-      if (this.errcnt < 8) this.errcnt++;
+      if (req.responseText !== "") {
+        errcnt = 0;
+        callback(req.responseText);
+      } else if (req.getResponseHeader("Server") === null) {
+        if (errcnt < 8) errcnt++;
 
-      this.req = initxmlhttp();
-      this.pendingUpdate();
+        req = initxmlhttp();
+      }
+      pendingUpdate();
     }
-  }
+  };
 
-  update(): void {
-    this.timer = null;
-    if (!this.req) this.req = initxmlhttp();
-    if (!this.req) { alert("no xml http support"); return; }
+  const onTimeout = () => {
+    timer2 = null;
+    if (req && req.readyState != 0 && req.readyState != 4) {
+      if (timer) {
+        clearTimeout(timer);
+        timer = null;
+      }
+      req.abort();
+      if (errcnt < 8) errcnt++;
 
-    let requestString = this.getRequestString();
+      req = initxmlhttp();
+      pendingUpdate();
+    }
+  };
+
+  const update = () => {
+    timer = null;
+    if (!req) req = initxmlhttp();
+    if (!req) { alert("no xml http support"); return; }
+
+    let requestString = getRequestString();
     if (requestString === "") {
-      this.timer = setTimeout(this.update, this.freq);
+      timer = setTimeout(update, freq);
       return;
     }
 
-    this.req.open("GET", `/_/${requestString}`, true);
-    this.req.onreadystatechange = this.onreadystatechange;
-    if (this.timer2) clearTimeout(this.timer2);
+    req.open("GET", `/_/${requestString}`, true);
+    req.onreadystatechange = onreadystatechange;
+    if (timer2) clearTimeout(timer2);
 
-    this.timer2 = setTimeout(this.onTimeout, 3000);
-    this.command = '';
-    this.req.send();
-  }
-}
+    timer2 = setTimeout(onTimeout, 3000);
+    command = '';
+    req.send();
+  };
+
+  return {
+    addCommand,
+    addRecur,
+    removeRecur,
+    update
+  };
+};
+
+export default createRequest;

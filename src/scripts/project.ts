@@ -1,5 +1,5 @@
-import Request from "./project/requests";
-import wwr_onreply from "./project/onreply";
+import createRequest from "./project/requests";
+import parseResponse from "./project/response";
 
 export interface CommandState {
   id: string | number;
@@ -41,16 +41,25 @@ export interface Transport {
   ts_denom: number;
 }
 
-export class Project {
+export interface UIState {
+  [id: string]: UIState | string | number | boolean;
+}
+
+export interface Project {
   transport: Transport;
   cmdstate: CommandStates;
   marker: Marker[];
   region: Region[];
   callback: Function[];
-  request: Request;
+  uistate: UIState;
+  request: any;
+}
 
-  constructor() {
-    this.transport = {
+export const createProject = () => {
+  const callback: Function[] = [];
+
+  const project = {
+    transport: {
       state: -1,
       seconds: 0.0,
       fullBeat: 0.0,
@@ -58,16 +67,19 @@ export class Project {
       beat: 0.0,
       ts_num: 4,
       ts_denom: 4,
-    };
-    this.cmdstate = {};
-    this.marker = [];
-    this.region = [];
-    this.callback = [];
-    this.request = new Request((s: string) => {
-      wwr_onreply(this, s);
-      for (let fn of this.callback) {
-        fn(this);
+    },
+    cmdstate: {},
+    marker: [],
+    region: [],
+    callback: callback,
+    uistate: {},
+    request: createRequest((s: string) => {
+      parseResponse(project, s);
+      for (let fn of callback) {
+        fn(project);
       }
     })
   }
-}
+
+  return project
+};
