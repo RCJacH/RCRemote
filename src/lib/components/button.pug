@@ -10,7 +10,7 @@ mixin clickable(iconname, isActive)
     class!=attributes.class,
     class={ '-active' : isActive },
     id!=`${id}-button`,
-    on:click=`triggered${title}Button(e)`
+    onclick=`triggered${title}Button(e)`
   )
     if iconname !== null
       svg.o-icon(viewBox="0 0 100 100")
