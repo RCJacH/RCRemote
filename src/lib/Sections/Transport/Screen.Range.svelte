@@ -1,7 +1,7 @@
 <script lang="ts">
   import { commandID } from "~scripts/constants";
-  import { project, addCommand } from "~scripts/requests";
-  import type { Project, Marker, Region } from "~scripts/project";
+  import { project, addCommand } from "~scripts/project";
+  import type { Project, Marker, Region } from "~scripts/project/constructor";
 
   let prev: Marker | Region | undefined;
   let curr: Marker | Region | undefined;

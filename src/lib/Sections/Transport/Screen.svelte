@@ -2,7 +2,7 @@
   import Button from "./ScreenButton.svelte";
   import Range from "./Screen.Range.svelte";
   import { commandID } from "~scripts/constants";
-  import { project, addCommand } from "~scripts/requests";
+  import { project, addCommand } from "~scripts/project";
 
   $: position = `${$project.transport.measure}.${(
     Math.round($project.transport.beat * 100) * 0.01 +

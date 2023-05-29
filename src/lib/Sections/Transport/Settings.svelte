@@ -1,7 +1,7 @@
 <script lang="ts">
   import ButtonBase from "./SettingsButton.svelte";
   import Button from "~components/Button.svelte";
-  import { project, addCommand } from "~scripts/requests";
+  import { project, addCommand } from "~scripts/project";
   import { commandID } from "~scripts/constants";
   import { createEventDispatcher, onMount } from "svelte";
   const dispatch = createEventDispatcher();

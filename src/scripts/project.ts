@@ -1,61 +1,34 @@
-export interface CommandState {
-  id: string | number;
-  state: boolean;
-}
+import { writable } from 'svelte/store';
+import { createProject } from '~scripts/project/constructor';
+import type { Project } from '~scripts/project/constructor';
 
-export interface CommandStates {
-  [id: string]: boolean;
-}
+function createResponse(project: Project) {
+  const { subscribe, set, update } = writable(project);
 
-export interface RGB {
-  r: number;
-  g: number;
-  b: number;
-}
+  function setNewValue(k: string, v: any) {
+    project[k] = v;
+    update(project => project);
+  }
 
-export interface Marker {
-  id: number;
-  name: string;
-  position: number;
-  color: RGB;
-}
-
-export interface Region {
-  id: number;
-  name: string;
-  start: number;
-  end: number;
-  color: RGB;
-}
-
-export interface Transport {
-  state: number;
-  seconds: number;
-  fullBeat: number;
-  measure: number;
-  beat: number;
-  ts_num: number;
-  ts_denom: number;
-}
-
-export class Project {
-  transport: Transport;
-  cmdstate: CommandStates;
-  marker?: Marker[];
-  region?: Region[];
-
-  constructor() {
-    this.transport = {
-      state: -1,
-      seconds: 0.0,
-      fullBeat: 0.0,
-      measure: 0,
-      beat: 0.0,
-      ts_num: 4,
-      ts_denom: 4,
-    };
-    this.cmdstate = {};
-    this.marker = [];
-    this.region = [];
+  return {
+    subscribe,
+    set transport(v) { setNewValue('transport', v); },
+    get transport() { return project.transport; },
+    set cmdstate(v) { setNewValue('cmdstate', v); },
+    get cmdstate() { return project.cmdstate; },
+    set marker(v) { setNewValue('marker', v); },
+    get marker() { return project.marker; },
+    set region(v) { setNewValue('region', v); },
+    get region() { return project.region; },
+    get request() { return project.request },
   }
 }
+
+const project = createResponse(createProject());
+
+const addCommand = project.request.addCommand;
+const addRecur = project.request.addRecur;
+const removeRecur = project.request.removeRecur;
+const update = project.request.update;
+
+export { project, addCommand, addRecur, removeRecur, update }

@@ -1,7 +1,7 @@
 <script lang="ts">
   import Button from "./PlaybackButton.svelte";
   import { commandID } from "~scripts/constants";
-  import { project, addCommand } from "~scripts/requests";
+  import { project, addCommand } from "~scripts/project";
 
   let allowPause = false;
   let undostate = 0;
