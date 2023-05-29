@@ -31,12 +31,13 @@ export default defineConfig(({ mode }) => {
       // viteSingleFile(),
       // renameIndexPlugin("rcremote.html")
     ],
-    // resolve: {
-    //   alias: {
-    //     "~scripts": "/src/scripts",
-    //     "~components": "/src/lib/components",
-    //   }
-    // }
+    resolve: {
+      alias: {
+        "~scripts": "/src/scripts",
+        "~components": "/src/lib/components",
+        "~sections": "/src/lib/sections"
+      }
+    },
     test: {
     }
   };
