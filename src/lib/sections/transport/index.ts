@@ -9,6 +9,47 @@ function cycleUnit(i: number, options: string[]) {
   return (i + 1) % Object.keys(options).length;
 }
 
+function statusText(index: number): string {
+  switch (index) {
+    case -1:
+      return "initializing...";
+    case 0:
+      return "stopped: ";
+    case 1:
+      return "playing: ";
+    case 2:
+      return "paused: ";
+    case 5:
+      return "recording: ";
+    case 6:
+      return "recpaused: ";
+    default:
+      return "";
+  }
+}
+
+function updateScreenStatus(project: Project) {
+  let ele = document.querySelector('#transport-screen-status');
+  if (!ele) { return; }
+  let text = statusText(project.uistate.transport.playstate);
+  ele.innerHTML = text;
+}
+
+function updateScreenPosition(project: Project) {
+  let ele = document.querySelector('#transport-screen-position');
+  if (!ele) { return; }
+  let text = `${project.transport.measure}.${(
+    Math.round(project.transport.beat * 100) * 0.01 +
+    1
+  ).toFixed(2)}`;
+  ele.innerHTML = text;
+}
+
+function addScreenTextListener(project: Project) {
+  project.callback.push(updateScreenStatus);
+  project.callback.push(updateScreenPosition);
+}
+
 function addScreenClickListeners(project: Project) {
   addClickListener('#rewind-button', () => {
     let options = commandID.transport.rewind;
@@ -76,6 +117,9 @@ function addPlaybackClickListeners(project: Project) {
 }
 
 export function addTransportListeners(project: Project) {
+  updateScreenStatus(project);
+  updateScreenPosition(project);
+  addScreenTextListener(project);
   addScreenClickListeners(project);
   addSettingsClickListeners(project);
   addPlaybackClickListeners(project);
