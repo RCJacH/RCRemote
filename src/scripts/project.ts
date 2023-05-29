@@ -1,3 +1,6 @@
+import Request from "./project/requests";
+import wwr_onreply from "./project/onreply";
+
 export interface CommandState {
   id: string | number;
   state: boolean;
@@ -41,8 +44,10 @@ export interface Transport {
 export class Project {
   transport: Transport;
   cmdstate: CommandStates;
-  marker?: Marker[];
-  region?: Region[];
+  marker: Marker[];
+  region: Region[];
+  callback: Function[];
+  request: Request;
 
   constructor() {
     this.transport = {
@@ -57,5 +62,12 @@ export class Project {
     this.cmdstate = {};
     this.marker = [];
     this.region = [];
+    this.callback = [];
+    this.request = new Request((s: string) => {
+      wwr_onreply(this, s);
+      for (let fn of this.callback) {
+        fn(this);
+      }
+    })
   }
 }
