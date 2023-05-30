@@ -74,7 +74,6 @@ export const createProject = () => {
     transport: {
       posUnit: 1,
       rangeUnit: 1,
-      playstate: -1,
       undostate: -1,
     }
   };
@@ -91,7 +90,8 @@ export const createProject = () => {
       for (let fn of callback) {
         fn(project);
       }
-    })
+    }),
+    start: () => { project.request.update(); }
   }
 
   return project

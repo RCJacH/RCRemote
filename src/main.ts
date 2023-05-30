@@ -10,4 +10,5 @@ project.request.addRecur(
   10
 );
 project.request.addRecur("MARKER;REGION", 500);
+project.start();
 addListeners(project);

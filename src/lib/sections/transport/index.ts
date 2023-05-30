@@ -31,7 +31,7 @@ function statusText(index: number): string {
 function updateScreenStatus(project: Project) {
   let ele = document.querySelector('#transport-screen-status');
   if (!ele) { return; }
-  let text = statusText(project.uistate.transport.playstate);
+  let text = statusText(project.transport.state);
   ele.innerHTML = text;
 }
 
