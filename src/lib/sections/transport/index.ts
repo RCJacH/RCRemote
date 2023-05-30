@@ -45,7 +45,7 @@ function updateScreenPosition(project: Project) {
   ele.innerHTML = text;
 }
 
-function addScreenTextListener(project: Project) {
+function addScreenTextCallback(project: Project) {
   project.callback.push(updateScreenStatus);
   project.callback.push(updateScreenPosition);
 }
@@ -82,7 +82,7 @@ function addToggleListener(project: Project, id: string, cmdstate: number | stri
   });
 }
 
-function addSettingsListeners(project: Project) {
+function addSettingsCallback(project: Project) {
   addToggleListener(project, '#preroll-button', commandID.toggle.preroll);
   addToggleListener(project, '#metronome-button', commandID.toggle.metronome);
   addToggleListener(project, '#loop-button', commandID.toggle.loop);
@@ -138,8 +138,8 @@ function addPlaybackClickListeners(project: Project) {
 export function addTransportListeners(project: Project) {
   updateScreenStatus(project);
   updateScreenPosition(project);
-  addScreenTextListener(project);
-  addSettingsListeners(project);
+  addScreenTextCallback(project);
+  addSettingsCallback(project);
   addScreenClickListeners(project);
   addSettingsClickListeners(project);
   addPlaybackClickListeners(project);
