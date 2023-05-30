@@ -3,7 +3,7 @@ $radius-end: 6em;
 $radius: 0.25em;
 
 #transport-settings {
-  .c-button--settings {
+  .c-button__settings {
     width: 100%;
     height: 90%;
     transition: all 150ms easeOutQuart;
@@ -61,10 +61,10 @@ $radius: 0.25em;
   }
   &:first-child button,
   &:first-child button::before {
-    border-radius: $radius-end $radius $radius $radius-end;
-  }
+      border-radius: $radius-end $radius $radius $radius-end;
+    }
   &:last-child button,
   &:last-child button::before {
-    border-radius: $radius $radius-end $radius-end $radius;
+      border-radius: $radius $radius-end $radius-end $radius;
   }
 }
