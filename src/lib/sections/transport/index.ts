@@ -1,5 +1,5 @@
 import { commandID } from "~scripts/constants.js";
-import { addClickListener, setActive } from "~scripts/utils";
+import { addClickListener, setActive, setDisplay } from "~scripts/utils";
 
 import type { Project } from "~scripts/project";
 
@@ -111,6 +111,26 @@ function addSettingsClickListeners(project: Project) {
   });
 }
 
+function updatePlayback(project: Project) {
+  let state = project.transport.state;
+  let isPlaying = (state >= 0) && (state&1) == 1;
+  let isRecording = (state >= 0) && (state&4) == 4;
+  setDisplay('#play-button', state <= 0 || !project.uistate.transport.allowPause);
+  setActive('#play-button', isPlaying);
+  setDisplay('#pause-button', state > 0 && project.uistate.transport.allowPause);
+  setActive('#pause-button', (state >= 0) && (state&2) == 2);
+  setActive('#record-button', isRecording);
+  setDisplay('#stop-button', state > 0);
+  setDisplay('#save-button', state <= 0);
+  setDisplay('#abort-button', isRecording);
+  setDisplay('#redo-button', !isRecording && project.uistate.transport.undostate == 1);
+  setDisplay('#undo-button', !isRecording && project.uistate.transport.undostate != 1);
+}
+
+function addPlaybackCallback(project: Project) {
+  project.callback.push(updatePlayback);
+}
+
 function addPlaybackClickListeners(project: Project) {
   addClickListener('#play-button', () => {
     project.request.addCommand(commandID.transport.play);
@@ -129,17 +149,21 @@ function addPlaybackClickListeners(project: Project) {
   });
   addClickListener('#redo-button', () => {
     project.request.addCommand(commandID.project.redo);
+    project.uistate.transport.undostate = 0;
   });
   addClickListener('#undo-button', () => {
     project.request.addCommand(commandID.project.undo);
+    project.uistate.transport.undostate = 1;
   });
 }
 
 export function addTransportListeners(project: Project) {
   updateScreenStatus(project);
   updateScreenPosition(project);
+  updatePlayback(project);
   addScreenTextCallback(project);
   addSettingsCallback(project);
+  addPlaybackCallback(project);
   addScreenClickListeners(project);
   addSettingsClickListeners(project);
   addPlaybackClickListeners(project);

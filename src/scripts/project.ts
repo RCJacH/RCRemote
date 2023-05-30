@@ -75,6 +75,7 @@ export const createProject = () => {
       posUnit: 1,
       rangeUnit: 1,
       undostate: -1,
+      allowPause: false,
     }
   };
 
