@@ -4,7 +4,6 @@ import { addClickListener, setActive, setDisplay } from "~scripts/utils";
 import type { Project } from "~scripts/project";
 
 const posUnits = Object.keys(commandID.transport.rewind);
-const rangeUnits = ["hide", "marker", "region"];
 
 function cycleUnit(i: number, options: string[]) {
   return (i + 1) % Object.keys(options).length;
@@ -98,7 +97,9 @@ function setPosUnit(project: Project) {
 function setRangeUnit(project:Project) {
   let ele = document.querySelector('#display-range-button svg > use');
   if (!ele) return;
-  ele.setAttribute('xlink:href', `#o-icon-${rangeUnits[project.uistate.transport.rangeUnit]}range`);
+  let length = project.uistate.transport.rangeUnit;
+  let id = `#o-icon-${length ? `displayrange${1<<length}` : 'hiderange'}`;
+  ele.setAttribute('xlink:href', id);
 }
 
 function addSettingsClickListeners(project: Project) {
@@ -112,7 +113,7 @@ function addSettingsClickListeners(project: Project) {
   });
   addClickListener('#display-range-button', () => {
     let t = project.uistate.transport;
-    t.rangeUnit = cycleUnit(t.rangeUnit, rangeUnits);
+    t.rangeUnit = (t.rangeUnit + 1) % 4;
     setRangeUnit(project);
   });
   addClickListener('#preroll-button', () => {
