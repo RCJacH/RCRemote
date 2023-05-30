@@ -1,4 +1,5 @@
 import './styles/main.pcss'
+import './lib/style.pcss'
 import { commandID } from './scripts/constants';
 import { createProject } from '~scripts/project';
 import { addListeners } from './lib'

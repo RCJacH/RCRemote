@@ -25,3 +25,44 @@
     stroke: var(--color-button_light-icon);
   }
 }
+
+#play-button {
+  &:active .o-icon {
+    fill: var(--color-play-button);
+    filter: brightness(95%);
+  }
+  &.-active .o-icon {
+    fill: var(--color-play-button);
+    filter: brightness(110%);
+  }
+}
+
+#record-button {
+  & .o-icon {
+    stroke: var(--color-record-button);
+  }
+  &:active .o-icon {
+    filter: brightness(105%);
+  }
+  &.-active .o-icon {
+    filter: brightness(115%);
+  }
+}
+
+#save-button:active .o-icon {
+  fill: #4682b4;
+}
+
+#abort-button {
+  & .o-icon {
+    stroke: var(--color-abort-button);
+  }
+  &:active .o-icon {
+    filter: brightness(115%);
+  }
+}
+
+#rewind-button .o-icon,
+#fforward-button .o-icon {
+  fill: var(--color-positional);
+}
