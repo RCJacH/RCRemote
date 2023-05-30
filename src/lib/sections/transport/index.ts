@@ -1,5 +1,5 @@
 import { commandID } from "~scripts/constants.js";
-import { addClickListener } from "~scripts/utils";
+import { addClickListener, setActive } from "~scripts/utils";
 
 import type { Project } from "~scripts/project";
 
@@ -69,6 +69,25 @@ function addScreenClickListeners(project: Project) {
   });
 }
 
+function addToggleListener(project: Project, id: string, cmdstate: number | string) {
+  project.callback.push((p: Project) => {
+    let state;
+    try {
+      state = p.cmdstate[cmdstate];
+    }
+    catch(err) {
+      state = false;
+    }
+    setActive(id, state);
+  });
+}
+
+function addSettingsListeners(project: Project) {
+  addToggleListener(project, '#preroll-button', commandID.toggle.preroll);
+  addToggleListener(project, '#metronome-button', commandID.toggle.metronome);
+  addToggleListener(project, '#loop-button', commandID.toggle.loop);
+}
+
 function addSettingsClickListeners(project: Project) {
   addClickListener('#position-unit-button', () => {
     let t = project.uistate.transport;
@@ -120,6 +139,7 @@ export function addTransportListeners(project: Project) {
   updateScreenStatus(project);
   updateScreenPosition(project);
   addScreenTextListener(project);
+  addSettingsListeners(project);
   addScreenClickListeners(project);
   addSettingsClickListeners(project);
   addPlaybackClickListeners(project);
