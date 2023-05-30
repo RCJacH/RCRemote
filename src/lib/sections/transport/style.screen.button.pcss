@@ -1,11 +1,9 @@
 .c-button__screen {
-  display: flex;
-  justify-content: center;
-  width: 100%;
-  height: 100%;
   background-color: transparent;
   flex: 1;
   opacity: 0;
+  width: 100%;
+  height: 100%;
   transition: opacity 50ms ease-out;
   border: none;
 
@@ -14,5 +12,10 @@
   }
   &:active {
     opacity: 0.8;
+  }
+
+  & .o-icon {
+    width: 60%;
+    height: 60%;
   }
 }
