@@ -59,12 +59,15 @@ $radius: 0.25em;
       fill: var(--color-button_dark-icon);
     }
   }
-  &:first-child button,
-  &:first-child button::before {
+
+  & .-multi {
+    & .c-button:first-child button,
+    & .c-button:first-child button::before {
       border-radius: $radius-end $radius $radius $radius-end;
     }
-  &:last-child button,
-  &:last-child button::before {
+    & .c-button:last-child button,
+    & .c-button:last-child button::before {
       border-radius: $radius $radius-end $radius-end $radius;
+    }
   }
 }
