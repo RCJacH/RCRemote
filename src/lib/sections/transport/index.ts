@@ -3,6 +3,7 @@ import { addClickListener, setActive, setDisplay } from "~scripts/utils";
 
 import type { Project } from "~scripts/project";
 
+const posUnits = Object.keys(commandID.transport.rewind);
 const rangeUnits = ["hide", "marker", "region"];
 
 function cycleUnit(i: number, options: string[]) {
@@ -55,7 +56,7 @@ function addScreenClickListeners(project: Project) {
     let options = commandID.transport.rewind;
     project.request.addCommand(
       options[
-        Object.keys(options)[project.uistate.transport.posUnit]
+        posUnits[project.uistate.transport.posUnit]
       ]
     );
   });
@@ -63,7 +64,7 @@ function addScreenClickListeners(project: Project) {
     let options = commandID.transport.fforward;
     project.request.addCommand(
       options[
-        Object.keys(options)[project.uistate.transport.posUnit]
+        posUnits[project.uistate.transport.posUnit]
       ]
     );
   });
@@ -88,10 +89,23 @@ function addSettingsCallback(project: Project) {
   addToggleListener(project, '#loop-button', commandID.toggle.loop);
 }
 
+function setPosUnit(project: Project) {
+  let ele = document.querySelector('#position-unit-button svg > use');
+  if (!ele) return;
+  ele.setAttribute('xlink:href', `#o-icon-${posUnits[project.uistate.transport.posUnit]}unit`);
+}
+
+function setRangeUnit(project:Project) {
+  let ele = document.querySelector('#display-range-button svg > use');
+  if (!ele) return;
+  ele.setAttribute('xlink:href', `#o-icon-${rangeUnits[project.uistate.transport.rangeUnit]}range`);
+}
+
 function addSettingsClickListeners(project: Project) {
   addClickListener('#position-unit-button', () => {
     let t = project.uistate.transport;
     t.posUnit = cycleUnit(t.posUnit, commandID.transport.rewind);
+    setPosUnit(project);
   });
   addClickListener('#menu-button', () => {
     console.log('menu pressed');
@@ -99,6 +113,7 @@ function addSettingsClickListeners(project: Project) {
   addClickListener('#display-range-button', () => {
     let t = project.uistate.transport;
     t.rangeUnit = cycleUnit(t.rangeUnit, rangeUnits);
+    setRangeUnit(project);
   });
   addClickListener('#preroll-button', () => {
     project.request.addCommand(commandID.toggle.preroll);
@@ -163,6 +178,8 @@ export function addTransportListeners(project: Project) {
   updatePlayback(project);
   addScreenTextCallback(project);
   addSettingsCallback(project);
+  setPosUnit(project);
+  setRangeUnit(project);
   addPlaybackCallback(project);
   addScreenClickListeners(project);
   addSettingsClickListeners(project);
