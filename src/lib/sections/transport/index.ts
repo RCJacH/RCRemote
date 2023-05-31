@@ -41,11 +41,11 @@ function updateRegions(curPos: number, range: number, regions: Region[]) {
     let startPct = (start - curPos + halfRange) / range;
     let endPct = (end - curPos + halfRange) / range;
     let width = endPct - startPct;
-    let trimmedStartPct = Math.max(startPct, -0.01);
+    let trimmedStartPct = Math.max(startPct, -0.03);
     width = width - (trimmedStartPct - startPct);
     let rgb = `rgb(${region.color.r}, ${region.color.g}, ${region.color.b})`;
     result += `<div class="region" style="--left: ${trimmedStartPct * 96}%; --width: ${width * 96}%; --color: ${rgb};">
-    <span class="text">${region.name || region.id}</span>
+    <span class="text" style="padding: 0 ${trimmedStartPct < 0 ? "2.8vw" : "0.5em"};">${region.name || region.id}</span>
     </div>`
   }
   ele.innerHTML = result;

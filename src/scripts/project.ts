@@ -60,6 +60,8 @@ export interface Project {
 
 type Callback = {[K in keyof Project]?: Function[];};
 
+type AnySection = Transport | CommandStates | Marker[] | Region[];
+
 export const createProject = () => {
   const transport: Transport = {
     state: -1,
@@ -99,7 +101,7 @@ export const createProject = () => {
       parseResponse(project, s);
     }),
     start: () => { project.request.update(); },
-    update: <T,>(section: keyof Project, result: T extends Project ? T : CommandState) => {
+    update: <T extends AnySection>(section: (keyof Project), result: T) => {
       Object.assign(project[section], result);
 
       for (let fn of project.callbacks[section]!) {
