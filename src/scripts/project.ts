@@ -73,7 +73,7 @@ export const createProject = () => {
   const uistate: UIState = {
     transport: {
       posUnit: 1,
-      rangeUnit: 1,
+      rangeUnit: 2,
       undostate: -1,
       allowPause: false,
     }

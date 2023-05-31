@@ -1,12 +1,48 @@
 import { commandID } from "~scripts/constants.js";
 import { addClickListener, setActive, setDisplay } from "~scripts/utils";
 
-import type { Project } from "~scripts/project";
+import type { Project, Marker, Region } from "~scripts/project";
 
 const posUnits = Object.keys(commandID.transport.rewind);
 
 function cycleUnit(i: number, options: string[]) {
   return (i + 1) % Object.keys(options).length;
+}
+
+function updateMarkers(curPos: number, range: number, markers: Marker[]) {
+  let ele = document.querySelector('#transport-screen-range-markers');
+  if (!ele) return;
+  let result = "";
+  let halfRange = range / 2;
+  for (let marker of markers) {
+    let pos = marker.position;
+    if (Math.abs(curPos - pos) > halfRange) continue;
+    let start = curPos - halfRange;
+    let pct = (pos - start) / range;
+    let rgb = `rgb(${marker.color.r}, ${marker.color.g}, ${marker.color.b})`;
+    result += `<div class="marker" style="--position: ${pct * 96}%;--text-color: black;">
+      <svg class="o-icon" style="--color-marker: ${rgb}">
+        <use xlink:href="#o-icon-marker"/>
+      </svg>
+    </div>`
+  }
+  ele.innerHTML = result;
+}
+
+
+function updateRange(project: Project) {
+  let ele = document.querySelector('#transport-screen-range');
+  if (!ele) return;
+  let range = 1 << project.uistate.transport.rangeUnit;
+  setDisplay('#transport-screen-range', range != 1);
+  if (range == 1) return;
+  range = range * project.transport.ts_num / project.transport.ts_denom * 120 / 60,
+  updateMarkers(project.transport.seconds, range, project.marker);
+}
+
+function updateScreenRange(project: Project) {
+  updateRange(project);
+  project.callback.push(updateRange);
 }
 
 function statusText(index: number): string {
@@ -100,6 +136,7 @@ function setRangeUnit(project:Project) {
   let length = project.uistate.transport.rangeUnit;
   let id = `#o-icon-${length ? `displayrange${1<<length}` : 'hiderange'}`;
   ele.setAttribute('xlink:href', id);
+  updateRange(project);
 }
 
 function addSettingsClickListeners(project: Project) {
@@ -176,6 +213,7 @@ function addPlaybackClickListeners(project: Project) {
 export function addTransportListeners(project: Project) {
   updateScreenStatus(project);
   updateScreenPosition(project);
+  updateScreenRange(project);
   updatePlayback(project);
   addScreenTextCallback(project);
   addSettingsCallback(project);

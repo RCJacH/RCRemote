@@ -28,7 +28,6 @@ export function setDisplay(id: string, isShown: boolean) {
   } else {
     ele.classList.add('-hidden');
   }
-
 }
 
 export function setContent(id: string, text: string) {
