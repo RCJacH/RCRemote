@@ -25,6 +25,23 @@
 }
 
 #transport-screen-range-regions {
+  & .region {
+    top: 10%;
+    height: 90%;
+    left: var(--left);
+    width: var(--width);
+    border: 0.03125em solid var(--color-screen-text);
+    border-radius: 6em;
+    background-color: var(--color);
+    overflow: hidden;
+    min-width: 0.8em;
+    & .text {
+      font-size: 0.5em;
+      position: sticky;
+      padding: 0 0.5em;
+      text-transform: initial;
+    }
+  }
 }
 
 #transport-screen-range-markers {

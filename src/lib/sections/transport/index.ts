@@ -29,6 +29,27 @@ function updateMarkers(curPos: number, range: number, markers: Marker[]) {
   ele.innerHTML = result;
 }
 
+function updateRegions(curPos: number, range: number, regions: Region[]) {
+  let ele = document.querySelector('#transport-screen-range-regions');
+  if (!ele) return;
+  let result = "";
+  let halfRange = range / 2;
+  for (let region of regions) {
+    let start = region.start;
+    let end = region.end;
+    if (Math.abs(curPos - start) > halfRange && Math.abs(curPos - end) > halfRange) continue;
+    let startPct = (start - curPos + halfRange) / range;
+    let endPct = (end - curPos + halfRange) / range;
+    let width = endPct - startPct;
+    let trimmedStartPct = Math.max(startPct, -0.01);
+    width = width - (trimmedStartPct - startPct);
+    let rgb = `rgb(${region.color.r}, ${region.color.g}, ${region.color.b})`;
+    result += `<div class="region" style="--left: ${trimmedStartPct * 96}%; --width: ${width * 96}%; --color: ${rgb};">
+    <span class="text">${region.name || region.id}</span>
+    </div>`
+  }
+  ele.innerHTML = result;
+}
 
 function updateRange(project: Project) {
   let ele = document.querySelector('#transport-screen-range');
@@ -38,6 +59,7 @@ function updateRange(project: Project) {
   if (range == 1) return;
   range = range * project.transport.ts_num / project.transport.ts_denom * 120 / 60,
   updateMarkers(project.transport.seconds, range, project.marker);
+  updateRegions(project.transport.seconds, range, project.region);
 }
 
 function updateScreenRange(project: Project) {
