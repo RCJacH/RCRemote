@@ -48,13 +48,17 @@ export interface UIState {
 
 export interface Project {
   transport: Transport;
-  cmdstate: CommandStates;
-  marker: Marker[];
-  region: Region[];
-  callback: Function[];
+  cmdstates: CommandStates;
+  markers: Marker[];
+  regions: Region[];
+  callbacks: Callback;
   uistate: UIState;
   request: Request;
+  update: Function;
+  addCallback: Function;
 }
+
+type Callback = {[K in keyof Project]?: Function[];};
 
 export const createProject = () => {
   const transport: Transport = {
@@ -66,10 +70,15 @@ export const createProject = () => {
     ts_num: 4,
     ts_denom: 4,
   };
-  const cmdstate: CommandStates = {};
+  const cmdstates: CommandStates = {};
   const marker: Marker[] = [];
   const region: Region[] = [];
-  const callback: Function[] = [];
+  const callback: Callback = {
+    transport: [],
+    cmdstates: [],
+    markers: [],
+    regions: [],
+  }
   const uistate: UIState = {
     transport: {
       posUnit: 1,
@@ -81,18 +90,27 @@ export const createProject = () => {
 
   const project = {
     transport: transport,
-    cmdstate: cmdstate,
-    marker: marker,
-    region: region,
-    callback: callback,
+    cmdstates: cmdstates,
+    markers: marker,
+    regions: region,
+    callbacks: callback,
     uistate: uistate,
     request: createRequest((s: string) => {
       parseResponse(project, s);
-      for (let fn of callback) {
+    }),
+    start: () => { project.request.update(); },
+    update: <T,>(section: keyof Project, result: T extends Project ? T : CommandState) => {
+      Object.assign(project[section], result);
+
+      for (let fn of project.callbacks[section]!) {
         fn(project);
       }
-    }),
-    start: () => { project.request.update(); }
+    },
+    addCallback: (key: (keyof Project)[], fn: Function) => {
+      for (let k of key) {
+        project.callbacks[k]?.push(fn);
+      }
+    }
   }
 
   return project

@@ -58,13 +58,13 @@ function updateRange(project: Project) {
   setDisplay('#transport-screen-range', range != 1);
   if (range == 1) return;
   range = range * project.transport.ts_num / project.transport.ts_denom * 120 / 60,
-  updateMarkers(project.transport.seconds, range, project.marker);
-  updateRegions(project.transport.seconds, range, project.region);
+  updateMarkers(project.transport.seconds, range, project.markers);
+  updateRegions(project.transport.seconds, range, project.regions);
 }
 
 function updateScreenRange(project: Project) {
   updateRange(project);
-  project.callback.push(updateRange);
+  project.addCallback(["transport", "markers", "regions"], updateRange);
 }
 
 function statusText(index: number): string {
@@ -104,8 +104,8 @@ function updateScreenPosition(project: Project) {
 }
 
 function addScreenTextCallback(project: Project) {
-  project.callback.push(updateScreenStatus);
-  project.callback.push(updateScreenPosition);
+  project.addCallback(["transport"], updateScreenStatus);
+  project.addCallback(["transport"], updateScreenPosition);
 }
 
 function addScreenClickListeners(project: Project) {
@@ -128,10 +128,10 @@ function addScreenClickListeners(project: Project) {
 }
 
 function addToggleListener(project: Project, id: string, cmdstate: number | string) {
-  project.callback.push((p: Project) => {
+  project.addCallback(["cmdstates"], (p: Project) => {
     let state;
     try {
-      state = p.cmdstate[cmdstate];
+      state = p.cmdstates[cmdstate];
     }
     catch(err) {
       state = false;
@@ -203,7 +203,7 @@ function updatePlayback(project: Project) {
 }
 
 function addPlaybackCallback(project: Project) {
-  project.callback.push(updatePlayback);
+  project.addCallback(["transport"], updatePlayback);
 }
 
 function addPlaybackClickListeners(project: Project) {

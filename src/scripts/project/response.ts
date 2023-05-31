@@ -11,13 +11,15 @@ export default function parseResponse(project: Project, results: string) {
       case "BEATPOS":
         let transport = parseBeatpos(tok);
         if (transport) {
-          project.transport = transport
+          project.update('transport', transport);
         }
         break;
       case "CMDSTATE":
         let cmdstate = parseCmdState(tok);
         if (cmdstate) {
-          project.cmdstate[cmdstate.id] = cmdstate.state;
+          let cmdstates = project.cmdstates;
+          cmdstates[cmdstate.id] = cmdstate.state;
+          project.update('cmdstates', cmdstates);
         }
         break;
       case "SEND":
@@ -32,7 +34,7 @@ export default function parseResponse(project: Project, results: string) {
         markers.push(parseMarker(tok));
         break;
       case "MARKER_LIST_END":
-        project.marker = markers;
+        project.update("markers", markers);
         break;
       case "REGION_LIST":
         break;
@@ -40,7 +42,7 @@ export default function parseResponse(project: Project, results: string) {
         regions.push(parseRegion(tok));
         break;
       case "REGION_LIST_END":
-        project.region = regions;
+        project.update("regions", regions);
         break;
     }
   }
