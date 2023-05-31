@@ -5,10 +5,10 @@ include ./screen.button.pug
   .c-screen__info
     #transport-screen-status
     #transport-screen-position
-    #transport-screen-range
-      #transport-screen-range-regions
-      #transport-screen-range-markers
-      .cursor
-        svg.o-icon(viewBox="0 0 100 100")
-          use(xlink:href="#o-icon-location")
   +ButtonScreen#fforward
+  #transport-screen-range
+    #transport-screen-range-regions
+    #transport-screen-range-markers
+    .cursor
+      svg.o-icon(viewBox="0 0 100 100")
+        use(xlink:href="#o-icon-location")
