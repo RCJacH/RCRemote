@@ -108,7 +108,7 @@ export const createProject = () => {
     },
     addCallback: (key: (keyof Project)[], fn: Function) => {
       for (let k of key) {
-        project.callbacks[k]?.push(fn);
+        project.callbacks[k]!.push(fn);
       }
     }
   }
