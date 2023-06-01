@@ -49,7 +49,7 @@ class MockServer {
     this.beat = total - this.measure * 4;
   }
 
-  runCommand(command) {
+  runCommand(command: number | string) {
     let result;
     switch (command) {
       case commandID.transport.play:
@@ -69,7 +69,7 @@ class MockServer {
         this.setPositionByBeat(-4);
         break;
       case commandID.transport.rewind.marker:
-        result = this.markers.findLast((x) => (x[2] < this.getCurTime()));
+        result = this.markers.findLast((x: [string, number, number, number]) => (x[2] < this.getCurTime()));
         this.setPositionByTime(result ? result[2] : 0);
         break;
       case commandID.transport.fforward.beat:
@@ -126,7 +126,7 @@ const mockPlugin: Plugin = {
                 let id = command.split('/')[1];
                 result += `CMDSTATE\t${id}\t${mockserver.toggle[id]}\n`
                 break;
-              case (!isNaN(command)):
+              case (!isNaN(parseInt(command))):
                 mockserver.runCommand(parseInt(command));
                 break;
               case (command === 'MARKER'):
