@@ -12,11 +12,20 @@ class MockServer {
   };
   markers: [string, number, number, number][] = [
     ["markername", 1, 4.0, 0],
+    ["", 7, 13.0, 26102272],
     ["", 3, 18.0, 25231359]
   ];
   regions: [string, number, number, number, number][] = [
-    ["regionname", 3, 8.0, 16.0, 0],
-    ["", 1, 19.0, 19.5, 33489024]
+    ["singleRegion", 3, 4.0, 8.0, 0],
+    ["", 1, 2.0, 3.0, 18956130],
+    ["", 56357, 2.0, 3.0, 22434674],
+    ["overlap-l", 5, 10.0, 14.0, 28513852],
+    ["overlap-r", 6, 12.0, 16.0, 33498103],
+    ["enclose-o", 7, 18.0, 24.0, 0],
+    ["enclose-i", 8, 20.0, 20.5, 33489024],
+    ["multilap-1", 10, 26.0, 36.0, 23760307],
+    ["multilap-2", 11, 28.0, 30.5, 27103620],
+    ["multilap-3", 12, 32.0, 34.5, 25987012],
   ];
   getBeatStr() {
     return `${this.measure}.${this.beat}`;
