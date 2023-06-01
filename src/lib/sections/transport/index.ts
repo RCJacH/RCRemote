@@ -37,7 +37,7 @@ function updateRegions(curPos: number, range: number, regions: Region[]) {
   for (let region of regions) {
     let start = region.start;
     let end = region.end;
-    if (Math.abs(curPos - start) > halfRange && Math.abs(curPos - end) > halfRange) continue;
+    if ((start - curPos) > halfRange || (curPos - end) > halfRange) continue;
     let startPct = (start - curPos + halfRange) / range;
     let endPct = (end - curPos + halfRange) / range;
     let width = endPct - startPct;
