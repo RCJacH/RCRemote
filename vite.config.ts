@@ -1,7 +1,7 @@
 /// <reference types="vitest" />
 import { defineConfig } from "vite"
 import pugPlugin from "vite-plugin-pug"
-// import { viteSingleFile } from "vite-plugin-singlefile"
+import { viteSingleFile } from "vite-plugin-singlefile"
 import mockServer from "./mock/server.mock"
 
 /**
@@ -28,8 +28,8 @@ export default defineConfig(({ mode }) => {
     plugins: [
       pugPlugin({}),
       isDev ? mockServer : [],
-      // viteSingleFile(),
-      // renameIndexPlugin("rcremote.html")
+      viteSingleFile(),
+      renameIndexPlugin("rcremote.html")
     ],
     resolve: {
       alias: {
