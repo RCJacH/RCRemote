@@ -70,21 +70,23 @@ function parseCmdState(tok: string[]): CommandState | null {
 }
 
 function parseMarker(tok: string[]): Marker {
+  let color = tok[4] === "0" ? { r: 160, g: 0, b: 0 } : parseColor(tok[4]);
   return {
     name: tok[1],
     id: parseInt(tok[2]),
     position: parseFloat(tok[3]),
-    color: parseColor(tok[4])
+    color: color
   }
 }
 
 function parseRegion(tok: string[]): Region {
+  let color = tok[5] === "0" ? { r: 86, g: 114, b: 114} : parseColor(tok[5]) ;
   return {
     name: tok[1],
     id: parseInt(tok[2]),
     start: parseFloat(tok[3]),
     end: parseFloat(tok[4]),
-    color: parseColor(tok[5])
+    color: color
   }
 }
 
@@ -95,5 +97,4 @@ function parseColor(rgbStr: string): RGB {
     g: (rgb >> 8) & 0xFF,
     b: rgb & 0xFF
   }
-
 }
