@@ -12,11 +12,13 @@ function cycleUnit(i: number, options: string[]) {
 function updateMarkers(curPos: number, range: number, markers: Marker[]) {
   let ele = document.querySelector('#transport-screen-range-markers');
   if (!ele) return;
+
   let result = "";
   let halfRange = range / 2;
   for (let marker of markers) {
     let pos = marker.position;
     if (Math.abs(curPos - pos) > halfRange) continue;
+
     let start = curPos - halfRange;
     let pct = (pos - start) / range;
     let rgb = `rgb(${marker.color.r}, ${marker.color.g}, ${marker.color.b})`;
@@ -32,12 +34,14 @@ function updateMarkers(curPos: number, range: number, markers: Marker[]) {
 function updateRegions(curPos: number, range: number, regions: Region[]) {
   let ele = document.querySelector('#transport-screen-range-regions');
   if (!ele) return;
+
   let result = "";
   let halfRange = range / 2;
   for (let region of regions) {
     let start = region.start;
     let end = region.end;
     if ((start - curPos) > halfRange || (curPos - end) > halfRange) continue;
+
     let startPct = (start - curPos + halfRange) / range;
     let endPct = (end - curPos + halfRange) / range;
     let width = endPct - startPct;
@@ -54,9 +58,11 @@ function updateRegions(curPos: number, range: number, regions: Region[]) {
 function updateRange(project: Project) {
   let ele = document.querySelector('#transport-screen-range');
   if (!ele) return;
+
   let range = 1 << project.uistate.transport.rangeUnit;
   setDisplay('#transport-screen-range', range != 1);
   if (range == 1) return;
+
   range = range * project.transport.ts_num / project.transport.ts_denom * 120 / 60,
   updateMarkers(project.transport.seconds, range, project.markers);
   updateRegions(project.transport.seconds, range, project.regions);
@@ -88,14 +94,16 @@ function statusText(index: number): string {
 
 function updateScreenStatus(project: Project) {
   let ele = document.querySelector('#transport-screen-status');
-  if (!ele) { return; }
+  if (!ele) return;
+
   let text = statusText(project.transport.state);
   ele.innerHTML = text;
 }
 
 function updateScreenPosition(project: Project) {
   let ele = document.querySelector('#transport-screen-position');
-  if (!ele) { return; }
+  if (!ele) return;
+
   let text = `${project.transport.measure}.${(
     Math.round(project.transport.beat * 100) * 0.01 +
     1
@@ -149,12 +157,14 @@ function addSettingsCallback(project: Project) {
 function setPosUnit(project: Project) {
   let ele = document.querySelector('#position-unit-button svg > use');
   if (!ele) return;
+
   ele.setAttribute('xlink:href', `#o-icon-${posUnits[project.uistate.transport.posUnit]}unit`);
 }
 
 function setRangeUnit(project:Project) {
   let ele = document.querySelector('#display-range-button svg > use');
   if (!ele) return;
+
   let length = project.uistate.transport.rangeUnit;
   let id = `#o-icon-${length ? `displayrange${1<<length}` : 'hiderange'}`;
   ele.setAttribute('xlink:href', id);
