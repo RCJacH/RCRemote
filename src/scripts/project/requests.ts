@@ -1,3 +1,9 @@
+declare global {
+  interface Window {
+    createRequest: Function;
+  }
+}
+
 function initxmlhttp(): XMLHttpRequest | null {
   let xmlhttp: XMLHttpRequest | null = null;
   if (typeof XMLHttpRequest !== 'undefined') {
