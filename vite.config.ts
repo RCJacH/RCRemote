@@ -29,7 +29,7 @@ export default defineConfig(({ mode }) => {
       pugPlugin({}),
       isDev ? mockServer : [],
       viteSingleFile(),
-      renameIndexPlugin("rcremote.html")
+      renameIndexPlugin("RCRemote.html")
     ],
     resolve: {
       alias: {
