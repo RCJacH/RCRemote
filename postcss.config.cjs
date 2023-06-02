@@ -7,6 +7,7 @@ module.exports = (ctx) => ({
     require('postcss-simple-vars'),
     require('postcss-nested'),
     require('postcss-preset-env'),
+    require('postcss-combine-duplicated-selectors')({ removeDuplicatedValues: true }),
     require('autoprefixer'),
   ]
 })
